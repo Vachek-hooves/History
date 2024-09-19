@@ -1,6 +1,7 @@
 import React, {useState, forwardRef} from 'react';
-import {StyleSheet, View, Dimensions, Button,SafeAreaView} from 'react-native';
+import {StyleSheet, View, Dimensions, TouchableOpacity, Text, SafeAreaView} from 'react-native';
 import MapView from 'react-native-maps';
+import {Color} from '../colors/color';
 
 const initialRegion = {
   latitude: -43.53205162938437,
@@ -30,16 +31,20 @@ const HistoryMapScreen = forwardRef((props, ref) => {
 
   return (
     <View style={styles.container}>
-        <SafeAreaView>
+      <SafeAreaView>
         <MapView
           ref={ref}
-              style={styles.map}
+          style={styles.map}
           region={region}
           onRegionChangeComplete={setRegion}
-      />
-      <View style={styles.buttonContainer}>
-        <Button title="+" onPress={zoomIn} />
-          <Button title="-" onPress={zoomOut} />
+        />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={zoomIn}>
+            <Text style={styles.buttonText}>+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={zoomOut}>
+            <Text style={styles.buttonText}>-</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </View>
@@ -56,11 +61,24 @@ const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: '80%', // 80% height for the map
+    borderRadius: 24,
   },
   buttonContainer: {
     position: 'absolute',
-    top: 10,
-    right: 10,
+    // top: 10,
+    // right: 10,
     flexDirection: 'column',
+    bottom: 10,
+    gap: 10,
+  },
+  button: {
+    backgroundColor: Color.gold,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 20,
+    color: 'white',
   },
 });
