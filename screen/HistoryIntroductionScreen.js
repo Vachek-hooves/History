@@ -1,7 +1,8 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {useHistoryContext} from '../store/storeContext';
 
 const HistoryIntroductionScreen = () => {
+
   return (
     <View>
       <Text>HistoryIntroductionScreen</Text>

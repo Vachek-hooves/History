@@ -4,6 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HistoryProvider} from './store/storeContext';
 import {HistoryIntroductionScreen} from './screen';
 
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
