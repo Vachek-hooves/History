@@ -1,13 +1,20 @@
 import React, {useState, forwardRef} from 'react';
-import {StyleSheet, View, Dimensions, TouchableOpacity, Text, SafeAreaView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  TouchableOpacity,
+  Text,
+  SafeAreaView,
+} from 'react-native';
 import MapView from 'react-native-maps';
 import {Color} from '../colors/color';
 
 const initialRegion = {
   latitude: -43.53205162938437,
   longitude: 172.6360443730743,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
+  latitudeDelta: 0.0002,
+  longitudeDelta: 0.0001,
 };
 
 const HistoryMapScreen = forwardRef((props, ref) => {
