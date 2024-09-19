@@ -1,5 +1,5 @@
 import React, {useState, forwardRef} from 'react';
-import {StyleSheet, View, Dimensions, Button} from 'react-native';
+import {StyleSheet, View, Dimensions, Button,SafeAreaView} from 'react-native';
 import MapView from 'react-native-maps';
 
 const initialRegion = {
@@ -30,16 +30,18 @@ const HistoryMapScreen = forwardRef((props, ref) => {
 
   return (
     <View style={styles.container}>
-      <MapView
-        ref={ref}
-        style={styles.map}
-        region={region}
-        onRegionChangeComplete={setRegion}
+        <SafeAreaView>
+        <MapView
+          ref={ref}
+              style={styles.map}
+          region={region}
+          onRegionChangeComplete={setRegion}
       />
       <View style={styles.buttonContainer}>
         <Button title="+" onPress={zoomIn} />
-        <Button title="-" onPress={zoomOut} />
-      </View>
+          <Button title="-" onPress={zoomOut} />
+        </View>
+      </SafeAreaView>
     </View>
   );
 });
@@ -49,11 +51,11 @@ export default HistoryMapScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 15,
   },
   map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: '100%',
+    height: '80%', // 80% height for the map
   },
   buttonContainer: {
     position: 'absolute',

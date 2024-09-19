@@ -1,5 +1,5 @@
 export const GameData = [
-    {
+    {story: "'Welcome! I'm James Bartlett, your guide on this captivating journey through the Chronicles of Time.The city of Christchurch, renowned for its rich historical heritage, invites you to dive into an exciting story that began in the mid-19th century. Throughout this journey, you will learn about the fascinating moments of Christchurch\'s founding, its early settlements, development, and emergence as one of New Zealand's most significant cities. From ancient buildings to key historical events – you will discover everything that has made this city so special. Don't miss the chance to explore more about Christchurch\'s intriguing path!'",
       level: 1,
       name: "Хроніки Часу",
       easy: [
@@ -97,7 +97,7 @@ export const GameData = [
         }
       ]
     },
-    {
+    {story: 'Greetings! I\'m James Bartlett, your guide along the River Avon, Christchurch\'s true lifeblood. The River Avon, which flows through the center of our city, is of great historical and cultural importance to Christchurch. Its waters not only provide beauty and tranquility, but also play a key role in the development of the city. By following its course, we can feel a connection to the historical past and the cultural changes that have taken place in Christchurch over the centuries. The river was an important resource for early settlers, and today it remains a favorite place for recreation and entertainment. Exploring the Avon River opens up a fascinating journey into the city\'s past and present. Don\'t miss the opportunity to learn more about this important part of our city!',
       level: 2,
       name: "Річка Ейвон: Життєдайна артерія міста",
       easy: [
@@ -195,7 +195,7 @@ export const GameData = [
         }
       ]
     },
-    {
+    {story: 'Congratulations! I\'m James Bartlett, your guide to the fascinating world of art and literature in Christchurch. Christchurch has a long and varied history in art and literature, stretching from classical times to modern times. Our city has become a center for numerous artists, writers and cultural figures who have invested their creativity in the development of our cultural environment. From early literary works inspired by the beauty of natural landscapes to contemporary artistic movements, Christchurch offers a rich spectrum of cultural influences and achievements. Here you will find numerous galleries, theaters and literary events that demonstrate the evolution of art and literature over the years. Get ready to immerse yourself in the world of creativity that has become an important part of Christchurch life.',
       level: 3,
       name: "Мистецтво та література Christchurch: Від класики до сучасності",
       easy: [   
@@ -293,7 +293,7 @@ export const GameData = [
         }
       ]
     },
-    {
+    {story: 'Congratulations! I\'m James Bartlett, your guide to the world of Christchurch tech. Christchurch is a city that has always been at the forefront of technological progress. From the first industrial revolutions to modern startups and environmental initiatives, our city is celebrated as a place of innovation and change. Technologies that were once a novelty have now become part of our daily lives. As you explore Christchurch\'s history, you\'ll see how technological advances have shaped the city\'s development and how innovation continues to shape our future. Get ready to learn about the fascinating technological periods that have made Christchurch what it is today.',
       level: 4,
       name: "Технологічний розвиток: Від минулого до сучасності",
       easy: [
@@ -391,7 +391,7 @@ export const GameData = [
         }
       ]
     },
-    {
+    {story: 'I congratulate you! James Bartlett, your guide to the world of Christchurch\'s green spaces. Christchurch is not only a city with a rich history and culture, but also an oasis of greenery. Our parks and gardens, such as Hagley Park and Christchurch Botanic Gardens, are the heart of the city and important parts of its heritage. These green spaces not only give us beauty and peace, but are also places for recreation, cultural events and social gatherings. Each park and garden has its own history and significance, which you can explore to better understand how they have influenced the life of the city and its residents. I invite you to explore these wonderful green spaces in Christchurch and learn more about their role in our cultural and natural heritage.',
       level: 5,
       name: "Зелений Christchurch: Парки та сади міста",
       easy: [
@@ -489,7 +489,7 @@ export const GameData = [
         }
       ]
     },
-    {
+    {story: 'Congratulations! I\'m James Bartlett, your guide to the world of Christchurch Gothic architecture. Christchurch is a city where Victorian Gothic architecture has left its mark. Since the end of the 19th century, our streets have been decorated with majestic Gothic buildings reflecting the architectural style of that era. Christchurch\'s Gothic buildings, such as Christchurch Cathedral and other iconic structures, are examples of architectural art that combines elegance and strength. These architectural masterpieces not only decorate the city, but also tell about its history and development. Prepare to travel back in time to explore how Gothic architecture shaped the city and left a legacy that still fascinates and amazes today.',
       level: 6,
       name: "Готична архітектура Крайстчерча: Спадщина вікторіанської епохи",
       easy: [
@@ -587,7 +587,7 @@ export const GameData = [
         }
       ]
     },
-    {
+    {story: 'Congratulations! James Bartlett, your guide to Christchurch\'s world of cultural diversity. Christchurch is a true cultural mosaic, where each nationality and ethnic group has made its unique contribution to the development of the city. Our city is marked by a wealth of cultural traditions, reflected in annual festivals, cuisine, art and social life. From Maori traditions to European, Asian and other cultures, Christchurch is a place where different cultural heritages intersect and enrich each other. Christchurch\'s multiculturalism creates a lively and dynamic atmosphere that makes our city so special. I invite you to explore these fascinating cultural aspects and learn how they shape our city.',
       level: 7,
       name: "Культурна мозаїка Крайстчерча: Мультикультурне місто",
       easy: [
