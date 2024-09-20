@@ -20,14 +20,15 @@ const LevelScreen = ({route, navigation}) => {
 
   return (
     <ImageBackground
-      // source={require('../assets/christchurch-bg.jpg')}
+      source={require('../assets/cardBG/church.jpg')}
+      blurRadius={4}
       style={styles.background}>
       <View style={styles.container}>
         <Text style={styles.header}>Chronicles of Time</Text>
 
         <View style={styles.guideContainer}>
           <Image
-            // source={require('../assets/james-bartlett.png')}
+            source={require('../assets/cardBG/James.png')}
             style={styles.avatar}
           />
           <Text style={styles.guideName}>James Bartlett</Text>
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    // backgroundColor: 'rgba(255,255,255,0.7)',
     paddingTop: 60,
   },
   header: {
