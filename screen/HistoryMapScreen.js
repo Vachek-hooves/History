@@ -122,7 +122,8 @@ export default HistoryMapScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Color.lightGreen + 90,
+    // backgroundColor: Color.lightGreen + 90,
+    backgroundColor: Color.gold,
   },
   safeArea: {
     flex: 1,
@@ -138,10 +139,10 @@ const styles = StyleSheet.create({
     right: 10,
     flexDirection: 'column',
     gap: 10,
-    bottom:'50%'
+    bottom: '50%',
   },
   button: {
-    backgroundColor: Color.gold,
+    backgroundColor: Color.lightGreen,
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   card: {
-    backgroundColor: Color.gold,
+    backgroundColor: Color.lightGreen,
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
@@ -184,7 +185,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
-  },markerIcon: {
+  },
+  markerIcon: {
     width: 60,
     height: 60,
     resizeMode: 'contain',
