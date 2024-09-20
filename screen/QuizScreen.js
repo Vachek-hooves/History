@@ -199,24 +199,38 @@ const QuizScreen = ({route, navigation}) => {
   };
 
   const renderTrueFalseOptions = () => {
-    return (
-      <>
+    return ['true', 'false'].map((option) => {
+      const isSelected = selectedOption === option;
+      const isCorrect = isSelected && option === questions[currentQuestionIndex].correctAnswer.toString();
+
+      let optionStyle = styles.option;
+      let textStyle = styles.optionText;
+
+      if (isSelected) {
+        if (isCorrect) {
+          optionStyle = [styles.option, styles.correctOption];
+          textStyle = [styles.optionText, styles.correctOptionText];
+        } else {
+          optionStyle = [styles.option, styles.incorrectOption];
+          textStyle = [styles.optionText, styles.incorrectOptionText];
+        }
+      }
+
+      return (
         <TouchableOpacity
-          style={styles.option}
-          onPress={() => handleOptionPress('true')}
+          key={option}
+          style={optionStyle}
+          onPress={() => handleOptionPress(option)}
           disabled={selectedOption !== null}
         >
-          <Text style={styles.optionText}>True</Text>
+          <View style={[styles.optionGradient, isSelected ? styles.selectedOption : null]}>
+            <Text style={textStyle}>{option.charAt(0).toUpperCase() + option.slice(1)}</Text>
+            {isSelected && isCorrect && <CorrectIcon />}
+            {isSelected && !isCorrect && <WrongIcon />}
+          </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.option}
-          onPress={() => handleOptionPress('false')}
-          disabled={selectedOption !== null}
-        >
-          <Text style={styles.optionText}>False</Text>
-        </TouchableOpacity>
-      </>
-    );
+      );
+    });
   };
 
   const renderResult = () => (
