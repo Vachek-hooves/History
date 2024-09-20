@@ -22,6 +22,7 @@ const LevelScreen = ({route, navigation}) => {
     <ImageBackground
       source={require('../assets/cardBG/church.jpg')}
       blurRadius={4}
+      
       style={styles.background}>
       <View style={styles.container}>
         <Text style={styles.header}>Chronicles of Time</Text>
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     padding: 20,
     // backgroundColor: 'rgba(255,255,255,0.7)',
     paddingTop: 60,
+    
   },
   header: {
     fontSize: 28,

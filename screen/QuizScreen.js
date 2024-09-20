@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     resizeMode: 'cover',
+    padding:5
   },
   container: {
     flex: 1,
