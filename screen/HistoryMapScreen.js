@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useRef } from 'react';
 import {
   StyleSheet,
   View,
@@ -24,6 +24,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
   const [region, setRegion] = useState(initialRegion);
   const { gameData } = useHistoryContext();
   const navigation = useNavigation();
+  const mapRef = useRef(null);
 
   const zoomIn = () => {
     setRegion({
@@ -41,15 +42,29 @@ const HistoryMapScreen = forwardRef((props, ref) => {
     });
   };
 
+  const navigateToLocation = (coordinates) => {
+    mapRef.current.animateToRegion({
+      ...coordinates,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    }, 1000);
+  };
+
   const renderCard = ({ item }) => (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigation.navigate('LevelScreen', { levelData: item })}
+      onPress={() => navigateToLocation(item.coordinates)}
     >
       <Text style={styles.cardText}>{item.name}</Text>
       <Text style={styles.coordsText}>
         Lat: {item.coordinates.latitude.toFixed(4)}, Lon: {item.coordinates.longitude.toFixed(4)}
       </Text>
+      <TouchableOpacity
+        style={styles.levelButton}
+        onPress={() => navigation.navigate('LevelScreen', { levelData: item })}
+      >
+        <Text style={styles.levelButtonText}>Start Level</Text>
+      </TouchableOpacity>
     </TouchableOpacity>
   );
 
@@ -57,7 +72,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <MapView
-          ref={ref}
+          ref={mapRef}
           style={styles.map}
           region={region}
           onRegionChangeComplete={setRegion}
@@ -139,10 +154,22 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
+    marginBottom: 5,
   },
   coordsText: {
     color: 'white',
     fontSize: 12,
+    marginBottom: 10,
+  },
+  levelButton: {
+    backgroundColor: Color.darkGreen,
+    padding: 8,
+    borderRadius: 5,
     marginTop: 5,
+  },
+  levelButtonText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
