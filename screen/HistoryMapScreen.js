@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: Color.lightGreen + 90,
     backgroundColor: Color.gold,
+    padding:3
   },
   safeArea: {
     flex: 1,
