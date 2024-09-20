@@ -64,8 +64,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
     <TouchableOpacity
       style={[styles.card, item.isLocked && styles.lockedCard]}
       onPress={() => !item.isLocked && navigateToLocation(item.coordinates)}
-      disabled={item.isLocked}
-    >
+      disabled={item.isLocked}>
       <Text style={styles.cardText}>{item.name}</Text>
       <Text style={styles.coordsText}>
         Lat: {item.coordinates.latitude.toFixed(4)}, Lon:{' '}
@@ -73,9 +72,11 @@ const HistoryMapScreen = forwardRef((props, ref) => {
       </Text>
       <TouchableOpacity
         style={styles.levelButton}
-        onPress={() => !item.isLocked && navigation.navigate('LevelScreen', {levelData: item})}
-        disabled={item.isLocked}
-      >
+        onPress={() =>
+          !item.isLocked &&
+          navigation.navigate('LevelScreen', {levelData: item})
+        }
+        disabled={item.isLocked}>
         <Text style={styles.levelButtonText}>
           {item.isLocked ? 'Locked' : 'Start Level'}
         </Text>
@@ -90,6 +91,8 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           ref={mapRef}
           style={styles.map}
           region={region}
+          language="en"
+          mapType="standard"
           onRegionChangeComplete={setRegion}>
           {gameData.map(item => {
             const icon = getIconForItem(item.id);
@@ -98,12 +101,14 @@ const HistoryMapScreen = forwardRef((props, ref) => {
                 key={item.id}
                 coordinate={item.coordinates}
                 title={item.name}
-                opacity={item.isLocked ? 0.5 : 1}
-              >
+                opacity={item.isLocked ? 0.5 : 1}>
                 {icon && (
                   <Image
                     source={icon}
-                    style={[styles.markerIcon, item.isLocked && styles.lockedMarkerIcon]}
+                    style={[
+                      styles.markerIcon,
+                      item.isLocked && styles.lockedMarkerIcon,
+                    ]}
                   />
                 )}
               </Marker>
@@ -208,6 +213,6 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   lockedMarkerIcon: {
-    opacity: 0.5,
+    opacity: 0.7,
   },
 });
