@@ -7,9 +7,45 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
+  Animated,
+  Easing,
 } from 'react-native';
 import { useHistoryContext } from '../store/storeContext';
 import { Color } from '../colors/color';
+
+const CircularProgress = ({ progress }) => {
+  const animatedValue = new Animated.Value(0);
+
+  useEffect(() => {
+    Animated.timing(animatedValue, {
+      toValue: progress,
+      duration: 1000,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: true,
+    }).start();
+  }, [progress]);
+
+  const rotation = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
+
+  return (
+    <View style={styles.progressContainer}>
+      <View style={styles.progressBackground} />
+      <Animated.View
+        style={[
+          styles.progressFill,
+          {
+            transform: [{ rotate: rotation }],
+          },
+        ]}
+      />
+      <View style={styles.progressCenter} />
+      <Text style={styles.progressText}>{`${Math.round(progress * 100)}%`}</Text>
+    </View>
+  );
+};
 
 const QuizScreen = ({ route, navigation }) => {
   const { levelData, difficulty } = route.params;
@@ -54,6 +90,7 @@ const QuizScreen = ({ route, navigation }) => {
 
   const renderQuestion = () => (
     <View style={styles.questionContainer}>
+      <CircularProgress progress={(currentQuestionIndex + 1) / questions.length} />
       <Text style={styles.questionText}>{questions[currentQuestionIndex].question}</Text>
       {difficulty === 'easy' ? (
         questions[currentQuestionIndex].options.map((option, index) => (
@@ -234,6 +271,46 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
+  },
+  progressContainer: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  progressBackground: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderWidth: 10,
+    borderColor: Color.lightBlue,
+    position: 'absolute',
+  },
+  progressFill: {
+    width: 50,
+    height: 100,
+    borderRadius: 50,
+    borderRightWidth: 10,
+    borderRightColor: Color.gold,
+    position: 'absolute',
+    transform: [{ translateX: 50 }],
+  },
+  progressCenter: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: 'white',
+    position: 'absolute',
+    top: 10,
+    left: 10,
+  },
+  progressText: {
+    position: 'absolute',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Color.deepBlue,
+    top: 38,
+    left: 30,
   },
 });
 
