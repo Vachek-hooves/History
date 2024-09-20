@@ -3,7 +3,7 @@ const CorrectIcon = () => {
   return (
     <Image
       source={require('../../../assets/icon/correct.png')}
-      style={{width: 30, height: 30}}
+      style={{width: 20, height: 20}}
     />
   );
 };

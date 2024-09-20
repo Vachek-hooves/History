@@ -216,11 +216,11 @@ const QuizScreen = ({route, navigation}) => {
           <Text style={styles.headerText}>{levelData.name}</Text>
           <Text style={styles.difficultyText}>Difficulty: {difficulty}</Text>
           {!showResult ? (
-            <>
-              <Text style={styles.progressText}>
+              <>
+              {/* <Text style={styles.progressText}>
                 Question {Math.min(currentQuestionIndex + 1, questions.length)}{' '}
                 of {questions.length}
-              </Text>
+              </Text> */}
               {renderQuestion()}
             </>
           ) : (
@@ -266,15 +266,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   questionContainer: {
-    backgroundColor: 'rgba(255,255,255,0.8)',
+    backgroundColor: 'rgba(255,255,255,0.4)',
     borderRadius: 10,
     padding: 20,
     marginBottom: 20,
+    
   },
   questionText: {
     fontSize: 18,
     color: Color.deepBlue,
     marginBottom: 20,
+    textAlign:'center',
+    height:100
   },
   option: {
     marginBottom: 15,
@@ -285,6 +288,8 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    borderWidth: 2,
+    borderColor: Color.lightBlue,
   },
   optionGradient: {
     padding: 15,
