@@ -88,50 +88,56 @@ const QuizScreen = ({ route, navigation }) => {
     }, 1000);
   };
 
-  const renderQuestion = () => (
-    <View style={styles.questionContainer}>
-      <CircularProgress progress={(currentQuestionIndex + 1) / questions.length} />
-      <Text style={styles.questionText}>{questions[currentQuestionIndex].question}</Text>
-      {difficulty === 'easy' ? (
-        questions[currentQuestionIndex].options.map((option, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[
-              styles.optionButton,
-              selectedAnswer === option && styles.selectedOption,
-            ]}
-            onPress={() => handleAnswer(option)}
-            disabled={selectedAnswer !== null}
-          >
-            <Text style={styles.optionText}>{option}</Text>
-          </TouchableOpacity>
-        ))
-      ) : (
-        <View style={styles.trueFalseContainer}>
-          <TouchableOpacity
-            style={[
-              styles.trueFalseButton,
-              selectedAnswer === true && styles.selectedOption,
-            ]}
-            onPress={() => handleAnswer(true)}
-            disabled={selectedAnswer !== null}
-          >
-            <Text style={styles.trueFalseText}>True</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.trueFalseButton,
-              selectedAnswer === false && styles.selectedOption,
-            ]}
-            onPress={() => handleAnswer(false)}
-            disabled={selectedAnswer !== null}
-          >
-            <Text style={styles.trueFalseText}>False</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
-  );
+  const renderQuestion = () => {
+    if (currentQuestionIndex >= questions.length) {
+      return null; // or you could render a loading indicator here
+    }
+
+    return (
+      <View style={styles.questionContainer}>
+        <CircularProgress progress={(currentQuestionIndex + 1) / questions.length} />
+        <Text style={styles.questionText}>{questions[currentQuestionIndex].question}</Text>
+        {difficulty === 'easy' ? (
+          questions[currentQuestionIndex].options.map((option, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.optionButton,
+                selectedAnswer === option && styles.selectedOption,
+              ]}
+              onPress={() => handleAnswer(option)}
+              disabled={selectedAnswer !== null}
+            >
+              <Text style={styles.optionText}>{option}</Text>
+            </TouchableOpacity>
+          ))
+        ) : (
+          <View style={styles.trueFalseContainer}>
+            <TouchableOpacity
+              style={[
+                styles.trueFalseButton,
+                selectedAnswer === true && styles.selectedOption,
+              ]}
+              onPress={() => handleAnswer(true)}
+              disabled={selectedAnswer !== null}
+            >
+              <Text style={styles.trueFalseText}>True</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.trueFalseButton,
+                selectedAnswer === false && styles.selectedOption,
+              ]}
+              onPress={() => handleAnswer(false)}
+              disabled={selectedAnswer !== null}
+            >
+              <Text style={styles.trueFalseText}>False</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+    );
+  };
 
   const renderResult = () => (
     <View style={styles.resultContainer}>
@@ -159,7 +165,7 @@ const QuizScreen = ({ route, navigation }) => {
           {!showResult ? (
             <>
               <Text style={styles.progressText}>
-                Question {currentQuestionIndex + 1} of {questions.length}
+                Question {Math.min(currentQuestionIndex + 1, questions.length)} of {questions.length}
               </Text>
               {renderQuestion()}
             </>
