@@ -144,10 +144,11 @@ export const GameData = [
           'Are ancient Maori artifacts housed in the Otago Museum in Christchurch?',
         correctAnswer: false,
       },
-    ], coordinates: {
-        latitude: -43.53105,
-        longitude: 172.6360,
-      },
+    ],
+    coordinates: {
+      latitude: -43.53305,
+      longitude: 172.638,
+    },
   },
   {
     id: 'c2',
@@ -311,10 +312,11 @@ export const GameData = [
           'Is the Avon River a place for recreation and cultural events in Christchurch?',
         correctAnswer: true,
       },
-    ],coordinates: {
-        latitude: -43.53305,
-        longitude: 172.6380,
-      },
+    ],
+    coordinates: {
+      latitude: -43.5331,
+      longitude: 172.638,
+    },
   },
   {
     id: 'c3',
@@ -486,10 +488,11 @@ export const GameData = [
           'Is The Court Theatre in Christchurch known for its traditional and conservative productions?',
         correctAnswer: false,
       },
-    ],coordinates: {
-        latitude: -43.53300,
-        longitude: 172.6340,
-      },
+    ],
+    coordinates: {
+      latitude: -43.53,
+      longitude: 172.637,
+    },
   },
   {
     id: 'c4',
@@ -657,10 +660,11 @@ export const GameData = [
           'Are geoseismic sensors used in Christchurch to monitor earthquakes?',
         correctAnswer: true,
       },
-    ],coordinates: {
-        latitude: -43.53302,
-        longitude: 172.6320,
-      },
+    ],
+    coordinates: {
+      latitude: -43.533,
+      longitude: 172.644,
+    },
   },
   {
     id: 'c5',
@@ -833,10 +837,11 @@ export const GameData = [
           'Is the Rose Garden at Hagley Park known for its beautiful rose displays and popular for weddings?',
         correctAnswer: true,
       },
-    ],coordinates: {
-        latitude: -43.53303,
-        longitude: 172.6390,
-      },
+    ],
+    coordinates: {
+      latitude: -43.533,
+      longitude: 172.634,
+    },
   },
   {
     id: 'c6',
@@ -998,10 +1003,11 @@ export const GameData = [
           'Are stained glass windows a typical feature of Victorian Gothic churches in Christchurch?',
         correctAnswer: true,
       },
-    ],coordinates: {
-        latitude: -43.53308,
-        longitude: 172.6370,
-      },
+    ],
+    coordinates: {
+      latitude: -43.533,
+      longitude: 172.634,
+    },
   },
   {
     id: 'c7',
@@ -1153,9 +1159,10 @@ export const GameData = [
           'Do Christchurch-based cultural events primarily focus on art and cultural exhibitions celebrating different ethnic groups?',
         correctAnswer: true,
       },
-    ],coordinates: {
-        latitude: -43.53302,
-        longitude: 172.6310,
-      },
+    ],
+    coordinates: {
+      latitude: -43.533,
+      longitude: 172.634,
+    },
   },
 ];
