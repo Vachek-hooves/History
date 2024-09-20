@@ -152,7 +152,7 @@ export const GameData = [
   },
   {
     id: 'c2',
-    isLocked: true,
+    isLocked: false,
     story:
       "Greetings! I'm James Bartlett, your guide along the River Avon, Christchurch's true lifeblood. The River Avon, which flows through the center of our city, is of great historical and cultural importance to Christchurch. Its waters not only provide beauty and tranquility, but also play a key role in the development of the city. By following its course, we can feel a connection to the historical past and the cultural changes that have taken place in Christchurch over the centuries. The river was an important resource for early settlers, and today it remains a favorite place for recreation and entertainment. Exploring the Avon River opens up a fascinating journey into the city's past and present. Don't miss the opportunity to learn more about this important part of our city!",
     level: 2,

@@ -27,6 +27,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
   const {gameData} = useHistoryContext();
   const navigation = useNavigation();
   const mapRef = useRef(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const getIconForItem = itemId => {
     const iconData = CITY_ICON.find(icon => icon.id === itemId);
@@ -62,25 +63,30 @@ const HistoryMapScreen = forwardRef((props, ref) => {
 
   const renderCard = ({item}) => (
     <TouchableOpacity
-      style={[styles.card, item.isLocked && styles.lockedCard]}
-      onPress={() => !item.isLocked && navigateToLocation(item.coordinates)}
+      style={[
+        styles.card,
+        item.isLocked && styles.lockedCard,
+        selectedCard === item.id && styles.selectedCard
+      ]}
+      onPress={() => {
+        if (!item.isLocked) {
+          navigateToLocation(item.coordinates);
+          setSelectedCard(item.id);
+        }
+      }}
       disabled={item.isLocked}>
       <Text style={styles.cardText}>{item.name}</Text>
       <Text style={styles.coordsText}>
         Lat: {item.coordinates.latitude.toFixed(4)}, Lon:{' '}
         {item.coordinates.longitude.toFixed(4)}
       </Text>
-      <TouchableOpacity
-        style={styles.levelButton}
-        onPress={() =>
-          !item.isLocked &&
-          navigation.navigate('LevelScreen', {levelData: item})
-        }
-        disabled={item.isLocked}>
-        <Text style={styles.levelButtonText}>
-          {item.isLocked ? 'Locked' : 'Start Level'}
-        </Text>
-      </TouchableOpacity>
+      {selectedCard === item.id && !item.isLocked && (
+        <TouchableOpacity
+          style={styles.levelButton}
+          onPress={() => navigation.navigate('LevelScreen', {levelData: item})}>
+          <Text style={styles.levelButtonText}>Start Level</Text>
+        </TouchableOpacity>
+      )}
     </TouchableOpacity>
   );
 
@@ -215,5 +221,9 @@ const styles = StyleSheet.create({
   },
   lockedMarkerIcon: {
     opacity: 0.7,
+  },
+  selectedCard: {
+    borderColor: Color.darkGreen,
+    borderWidth: 3,
   },
 });
