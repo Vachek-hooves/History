@@ -82,9 +82,11 @@ const QuizScreen = ({route, navigation}) => {
     saveProgress(newProgress);
   };
 
-  const handleOptionPress = option => {
+  const handleOptionPress = (option) => {
     setSelectedOption(option);
-    const correct = option === questions[currentQuestionIndex].correctAnswer;
+    const correct = difficulty === 'easy'
+      ? option === questions[currentQuestionIndex].correctAnswer
+      : option === questions[currentQuestionIndex].correctAnswer.toString();
     setIsCorrect(correct);
 
     if (correct) {
@@ -127,9 +129,11 @@ const QuizScreen = ({route, navigation}) => {
   };
 
   const renderQuestion = () => {
-    if (currentQuestionIndex >= questions.length) {
+    if (!questions || currentQuestionIndex >= questions.length) {
       return null;
     }
+
+    const currentQuestion = questions[currentQuestionIndex];
 
     return (
       <View style={styles.questionContainer}>
@@ -142,11 +146,13 @@ const QuizScreen = ({route, navigation}) => {
             {transform: [{translateX: shakeAnimation}]},
           ]}>
           <Text style={styles.questionText}>
-            {questions[currentQuestionIndex].question}
+            {currentQuestion.question}
           </Text>
         </Animated.View>
         <View style={styles.optionsContainer}>
-          {questions[currentQuestionIndex].options.map(renderOption)}
+          {difficulty === 'easy' 
+            ? currentQuestion.options.map(renderOption)
+            : renderTrueFalseOptions()}
         </View>
       </View>
     );
@@ -189,6 +195,27 @@ const QuizScreen = ({route, navigation}) => {
           {isSelected && !isCorrect && <WrongIcon />}
         </View>
       </TouchableOpacity>
+    );
+  };
+
+  const renderTrueFalseOptions = () => {
+    return (
+      <>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => handleOptionPress('true')}
+          disabled={selectedOption !== null}
+        >
+          <Text style={styles.optionText}>True</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => handleOptionPress('false')}
+          disabled={selectedOption !== null}
+        >
+          <Text style={styles.optionText}>False</Text>
+        </TouchableOpacity>
+      </>
     );
   };
 
