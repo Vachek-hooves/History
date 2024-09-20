@@ -3,6 +3,7 @@ import HistoryMapScreen from './HistoryMapScreen';
 import HistoryUserScreen from './HistoryUserScreen';
 import MainHistoryScreen from './MainHistoryScreen';
 import HistoryIntroductionScreen from './HistoryIntroductionScreen';
+import LevelScren from './LevelScren';
 
 export {
   HistoryGameScreen,
@@ -10,4 +11,5 @@ export {
   HistoryUserScreen,
   MainHistoryScreen,
   HistoryIntroductionScreen,
+  LevelScren,
 };
