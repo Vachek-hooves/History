@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { Color } from '../colors/color';
 import { useHistoryContext } from '../store/storeContext';
 import { useNavigation } from '@react-navigation/native';
@@ -47,6 +47,9 @@ const HistoryMapScreen = forwardRef((props, ref) => {
       onPress={() => navigation.navigate('LevelScreen', { levelData: item })}
     >
       <Text style={styles.cardText}>{item.name}</Text>
+      <Text style={styles.coordsText}>
+        Lat: {item.coordinates.latitude.toFixed(4)}, Lon: {item.coordinates.longitude.toFixed(4)}
+      </Text>
     </TouchableOpacity>
   );
 
@@ -58,7 +61,15 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           style={styles.map}
           region={region}
           onRegionChangeComplete={setRegion}
-        />
+        >
+          {gameData.map((item) => (
+            <Marker
+              key={item.id}
+              coordinate={item.coordinates}
+              title={item.name}
+            />
+          ))}
+        </MapView>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={zoomIn}>
             <Text style={styles.buttonText}>+</Text>
@@ -128,5 +139,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  coordsText: {
+    color: 'white',
+    fontSize: 12,
+    marginTop: 5,
   },
 });
