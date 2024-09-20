@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   container: {
-    flex: 1,
+    flex: 0.8,
     padding: 20,
     // backgroundColor: 'rgba(255,255,255,0.7)',
     paddingTop: 60,
@@ -71,25 +71,28 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: Color.darkGreen,
+    // color: Color.darkGreen,
+    color: Color.deepBlue,
     textAlign: 'center',
     marginBottom: 20,
   },
   guideContainer: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
   },
   avatar: {
-    width: 50,
-    height: 50,
+    width: '80%',
+    height: 200,
     borderRadius: 25,
     marginRight: 10,
   },
   guideName: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: Color.darkGreen,
+    // color: Color.gold,
+    color: Color.deepBlue,
+    marginVertical: 10,
   },
   storyContainer: {
     backgroundColor: 'rgba(255,255,255,0.8)',
@@ -99,7 +102,8 @@ const styles = StyleSheet.create({
   },
   storyText: {
     fontSize: 16,
-    color: Color.darkGreen,
+    // color: Color.darkGreen,
+    color: Color.deepBlue,
     lineHeight: 24,
   },
   buttonContainer: {
@@ -115,10 +119,12 @@ const styles = StyleSheet.create({
     width: '45%',
   },
   easyButton: {
-    backgroundColor: Color.gold,
+    // backgroundColor: Color.gold,
+    backgroundColor: Color.lightBlue,
   },
   hardButton: {
-    backgroundColor: Color.darkGreen,
+    // backgroundColor: Color.darkGreen,
+    backgroundColor: Color.deepBlue,
   },
   buttonText: {
     color: 'white',

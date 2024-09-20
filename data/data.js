@@ -320,7 +320,7 @@ export const GameData = [
   },
   {
     id: 'c3',
-    isLocked: true,
+    isLocked: false,
     story:
       "Congratulations! I'm James Bartlett, your guide to the fascinating world of art and literature in Christchurch. Christchurch has a long and varied history in art and literature, stretching from classical times to modern times. Our city has become a center for numerous artists, writers and cultural figures who have invested their creativity in the development of our cultural environment. From early literary works inspired by the beauty of natural landscapes to contemporary artistic movements, Christchurch offers a rich spectrum of cultural influences and achievements. Here you will find numerous galleries, theaters and literary events that demonstrate the evolution of art and literature over the years. Get ready to immerse yourself in the world of creativity that has become an important part of Christchurch life.",
     level: 3,

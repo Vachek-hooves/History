@@ -97,7 +97,8 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           ref={mapRef}
           style={styles.map}
           region={region}
-          language="en"
+          // language="en"
+        
           mapType="standard"
           onRegionChangeComplete={setRegion}>
           {gameData.map(item => {
@@ -146,8 +147,8 @@ export default HistoryMapScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: Color.lightGreen + 90,
-    backgroundColor: Color.gold,
+    backgroundColor: Color.lightGreen + 90,
+    // backgroundColor: Color.gold,
     padding:3
   },
   safeArea: {
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     bottom: '50%',
   },
   button: {
-    backgroundColor: Color.lightGreen,
+    backgroundColor: Color.lightBlue,
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   card: {
-    backgroundColor: Color.lightGreen,
+    backgroundColor: Color.lightBlue,
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   levelButton: {
-    backgroundColor: Color.darkGreen,
+    backgroundColor: Color.deepBlue,
     padding: 8,
     borderRadius: 5,
     marginTop: 5,
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   selectedCard: {
-    borderColor: Color.darkGreen,
+    borderColor: Color.deepBlue,
     borderWidth: 3,
   },
 });

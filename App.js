@@ -6,6 +6,7 @@ import {
   HistoryIntroductionScreen,
   HistoryMapScreen,
   LevelScren,
+  QuizScreen,
 } from './screen';
 
 const Stack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ function App() {
           />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="LevelScreen" component={LevelScren} />
+          <Stack.Screen name="QuizScreen" component={QuizScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </HistoryProvider>
