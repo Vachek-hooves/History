@@ -7,20 +7,44 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
+  Animated,
 } from 'react-native';
 import {useHistoryContext} from '../store/storeContext';
 import {Color} from '../colors/color';
+import {CorrectIcon, WrongIcon} from '../components/ui/quizIcons';
+// import Icon from 'react-native-vector-icons/Ionicons';
 
-const CircularProgress = ({ progress }) => {
+const CircularProgress = ({progress}) => {
   const angle = progress * 360;
-  
+
   return (
     <View style={styles.progressContainer}>
       <View style={styles.progressCircle}>
-        <View style={[styles.progressFill, { transform: [{ rotateZ: `${angle}deg` }] }]} />
+        {progress > 0 && (
+          <View
+            style={[
+              styles.progressFill,
+              {
+                transform: [{rotateZ: `-90deg`}, {rotateY: '180deg'}],
+                zIndex: 1,
+              },
+            ]}>
+            <View
+              style={[
+                styles.progressFill,
+                {
+                  backgroundColor: Color.gold,
+                  transform: [{rotateZ: `${angle}deg`}, {rotateY: '180deg'}],
+                },
+              ]}
+            />
+          </View>
+        )}
         <View style={styles.progressInner} />
       </View>
-      <Text style={styles.progressText}>{`${Math.round(progress * 100)}%`}</Text>
+      <Text style={styles.progressText}>{`${Math.round(
+        progress * 100,
+      )}%`}</Text>
     </View>
   );
 };
@@ -31,7 +55,9 @@ const QuizScreen = ({route, navigation}) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [shakeAnimation] = useState(new Animated.Value(0));
 
   const questions = difficulty === 'easy' ? levelData.easy : levelData.hard;
 
@@ -56,18 +82,48 @@ const QuizScreen = ({route, navigation}) => {
     saveProgress(newProgress);
   };
 
-  const handleAnswer = answer => {
-    setSelectedAnswer(answer);
-    setTimeout(() => {
-      const isCorrect =
-        difficulty === 'easy'
-          ? answer === questions[currentQuestionIndex].correctAnswer
-          : answer === questions[currentQuestionIndex].correctAnswer;
+  const handleOptionPress = option => {
+    setSelectedOption(option);
+    const correct = option === questions[currentQuestionIndex].correctAnswer;
+    setIsCorrect(correct);
 
-      if (isCorrect) setScore(score + 1);
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedAnswer(null);
-    }, 1000);
+    if (correct) {
+      // Correct answer logic
+      setScore(score + 1);
+      setTimeout(() => moveToNextQuestion(), 1000);
+    } else {
+      // Incorrect answer animation
+      Animated.sequence([
+        Animated.timing(shakeAnimation, {
+          toValue: 10,
+          duration: 100,
+          useNativeDriver: true,
+        }),
+        Animated.timing(shakeAnimation, {
+          toValue: -10,
+          duration: 100,
+          useNativeDriver: true,
+        }),
+        Animated.timing(shakeAnimation, {
+          toValue: 10,
+          duration: 100,
+          useNativeDriver: true,
+        }),
+        Animated.timing(shakeAnimation, {
+          toValue: 0,
+          duration: 100,
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        setTimeout(() => moveToNextQuestion(), 1000);
+      });
+    }
+  };
+
+  const moveToNextQuestion = () => {
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setSelectedOption(null);
+    setIsCorrect(null);
   };
 
   const renderQuestion = () => {
@@ -77,46 +133,62 @@ const QuizScreen = ({route, navigation}) => {
 
     return (
       <View style={styles.questionContainer}>
-        <CircularProgress progress={(currentQuestionIndex + 1) / questions.length} />
-        <Text style={styles.questionText}>
-          {questions[currentQuestionIndex].question}
-        </Text>
-        {difficulty === 'easy' ? (
-          questions[currentQuestionIndex].options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.optionButton,
-                selectedAnswer === option && styles.selectedOption,
-              ]}
-              onPress={() => handleAnswer(option)}
-              disabled={selectedAnswer !== null}>
-              <Text style={styles.optionText}>{option}</Text>
-            </TouchableOpacity>
-          ))
-        ) : (
-          <View style={styles.trueFalseContainer}>
-            <TouchableOpacity
-              style={[
-                styles.trueFalseButton,
-                selectedAnswer === true && styles.selectedOption,
-              ]}
-              onPress={() => handleAnswer(true)}
-              disabled={selectedAnswer !== null}>
-              <Text style={styles.trueFalseText}>True</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.trueFalseButton,
-                selectedAnswer === false && styles.selectedOption,
-              ]}
-              onPress={() => handleAnswer(false)}
-              disabled={selectedAnswer !== null}>
-              <Text style={styles.trueFalseText}>False</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        <CircularProgress
+          progress={(currentQuestionIndex + 1) / questions.length}
+        />
+        <Animated.View
+          style={[
+            styles.questionContainer,
+            {transform: [{translateX: shakeAnimation}]},
+          ]}>
+          <Text style={styles.questionText}>
+            {questions[currentQuestionIndex].question}
+          </Text>
+        </Animated.View>
+        <View style={styles.optionsContainer}>
+          {questions[currentQuestionIndex].options.map(renderOption)}
+        </View>
       </View>
+    );
+  };
+
+  const renderOption = (option, index) => {
+    const isSelected = selectedOption === option;
+    const isCorrectOption =
+      questions[currentQuestionIndex].correctAnswer === option;
+
+    let optionStyle = styles.option;
+    let textStyle = styles.optionText;
+
+    if (isSelected) {
+      if (isCorrect === true) {
+        optionStyle = [styles.option, styles.correctOption];
+        textStyle = [styles.optionText, styles.correctOptionText];
+      } else if (isCorrect === false) {
+        optionStyle = [styles.option, styles.incorrectOption];
+        textStyle = [styles.optionText, styles.incorrectOptionText];
+      }
+    } else if (isCorrect === false && isCorrectOption) {
+      optionStyle = [styles.option, styles.correctOption];
+      textStyle = [styles.optionText, styles.correctOptionText];
+    }
+
+    return (
+      <TouchableOpacity
+        key={index}
+        style={optionStyle}
+        onPress={() => handleOptionPress(option)}
+        disabled={selectedOption !== null}>
+        <View
+          style={[
+            styles.optionGradient,
+            isSelected ? styles.selectedOption : null,
+          ]}>
+          <Text style={textStyle}>{option}</Text>
+          {isSelected && isCorrect && <CorrectIcon />}
+          {isSelected && !isCorrect && <WrongIcon />}
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -204,34 +276,47 @@ const styles = StyleSheet.create({
     color: Color.deepBlue,
     marginBottom: 20,
   },
-  optionButton: {
-    backgroundColor: Color.lightBlue,
+  option: {
+    marginBottom: 15,
+    borderRadius: 15,
+    overflow: 'hidden',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  optionGradient: {
     padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#F0F0F0',
   },
   selectedOption: {
-    backgroundColor: Color.gold,
+    backgroundColor: '#FFD700',
   },
   optionText: {
-    color: 'white',
     fontSize: 16,
-    textAlign: 'center',
+    fontWeight: '600',
+    color: Color.deepBlue,
   },
-  trueFalseContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+  correctOption: {
+    borderColor: Color.deepGreen,
+    borderWidth: 2,
   },
-  trueFalseButton: {
-    backgroundColor: Color.lightBlue,
-    padding: 15,
-    borderRadius: 10,
-    width: '45%',
+  incorrectOption: {
+    borderColor: Color.deepRed,
+    borderWidth: 2,
   },
-  trueFalseText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
+  correctOptionText: {
+    color: Color.deepGreen,
+  },
+  incorrectOptionText: {
+    color: Color.deepRed,
+  },
+  icon: {
+    marginLeft: 10,
   },
   resultContainer: {
     backgroundColor: 'rgba(255,255,255,0.8)',
@@ -277,9 +362,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'absolute',
-    backgroundColor: Color.gold,
-    transform: [{ rotateZ: '0deg' }],
-    transformOrigin: '50% 50%',
+    borderRadius: 50,
   },
   progressInner: {
     width: 80,
