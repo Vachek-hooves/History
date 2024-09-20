@@ -13,8 +13,8 @@ import {Color} from '../colors/color';
 const initialRegion = {
   latitude: -43.53205162938437,
   longitude: 172.6360443730743,
-  latitudeDelta: 0.0002,
-  longitudeDelta: 0.0001,
+  latitudeDelta: 0.0362,
+  longitudeDelta: 0.0361,
 };
 
 const HistoryMapScreen = forwardRef((props, ref) => {
@@ -31,8 +31,8 @@ const HistoryMapScreen = forwardRef((props, ref) => {
   const zoomOut = () => {
     setRegion({
       ...region,
-      latitudeDelta: region.latitudeDelta * 2,
-      longitudeDelta: region.longitudeDelta * 2,
+      latitudeDelta: region.latitudeDelta * 1.1,
+      longitudeDelta: region.longitudeDelta * 1.1,
     });
   };
 
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
-    backgroundColor: Color.lightGreen+90,
+    backgroundColor: Color.lightGreen + 90,
   },
   map: {
     width: '100%',
