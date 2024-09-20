@@ -62,8 +62,10 @@ const HistoryMapScreen = forwardRef((props, ref) => {
 
   const renderCard = ({item}) => (
     <TouchableOpacity
-      style={styles.card}
-      onPress={() => navigateToLocation(item.coordinates)}>
+      style={[styles.card, item.isLocked && styles.lockedCard]}
+      onPress={() => !item.isLocked && navigateToLocation(item.coordinates)}
+      disabled={item.isLocked}
+    >
       <Text style={styles.cardText}>{item.name}</Text>
       <Text style={styles.coordsText}>
         Lat: {item.coordinates.latitude.toFixed(4)}, Lon:{' '}
@@ -71,8 +73,12 @@ const HistoryMapScreen = forwardRef((props, ref) => {
       </Text>
       <TouchableOpacity
         style={styles.levelButton}
-        onPress={() => navigation.navigate('LevelScreen', {levelData: item})}>
-        <Text style={styles.levelButtonText}>Start Level</Text>
+        onPress={() => !item.isLocked && navigation.navigate('LevelScreen', {levelData: item})}
+        disabled={item.isLocked}
+      >
+        <Text style={styles.levelButtonText}>
+          {item.isLocked ? 'Locked' : 'Start Level'}
+        </Text>
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -91,8 +97,15 @@ const HistoryMapScreen = forwardRef((props, ref) => {
               <Marker
                 key={item.id}
                 coordinate={item.coordinates}
-                title={item.name}>
-                {icon && <Image source={icon} style={styles.markerIcon} />}
+                title={item.name}
+                opacity={item.isLocked ? 0.5 : 1}
+              >
+                {icon && (
+                  <Image
+                    source={icon}
+                    style={[styles.markerIcon, item.isLocked && styles.lockedMarkerIcon]}
+                  />
+                )}
               </Marker>
             );
           })}
@@ -190,5 +203,11 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     resizeMode: 'contain',
+  },
+  lockedCard: {
+    opacity: 0.5,
+  },
+  lockedMarkerIcon: {
+    opacity: 0.5,
   },
 });
