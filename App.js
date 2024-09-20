@@ -2,8 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HistoryProvider} from './store/storeContext';
-import {HistoryIntroductionScreen} from './screen';
-
+import {HistoryIntroductionScreen, HistoryMapScreen} from './screen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,6 +19,7 @@ function App() {
           screenOptions={{
             headerShown: false,
           }}>
+          <Stack.Screen name="HistoryMapScreen" component={HistoryMapScreen} />
           <Stack.Screen
             name="IntroductionScreen"
             component={HistoryIntroductionScreen}
