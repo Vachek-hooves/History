@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
+    backgroundColor: Color.lightGreen+90,
   },
   map: {
     width: '100%',
