@@ -317,6 +317,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     borderWidth: 2,
     borderColor: Color.lightBlue,
+    
+
   },
   optionGradient: {
     padding: 15,
