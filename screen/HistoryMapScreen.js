@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useRef } from 'react';
+import React, {useState, forwardRef, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,11 +7,13 @@ import {
   Text,
   SafeAreaView,
   FlatList,
+  Image,
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import { Color } from '../colors/color';
-import { useHistoryContext } from '../store/storeContext';
-import { useNavigation } from '@react-navigation/native';
+import MapView, {Marker} from 'react-native-maps';
+import {Color} from '../colors/color';
+import {useHistoryContext} from '../store/storeContext';
+import {useNavigation} from '@react-navigation/native';
+import {CITY_ICON} from '../data/cityIconData';
 
 const initialRegion = {
   latitude: -43.53205162938437,
@@ -22,9 +24,14 @@ const initialRegion = {
 
 const HistoryMapScreen = forwardRef((props, ref) => {
   const [region, setRegion] = useState(initialRegion);
-  const { gameData } = useHistoryContext();
+  const {gameData} = useHistoryContext();
   const navigation = useNavigation();
   const mapRef = useRef(null);
+
+  const getIconForItem = itemId => {
+    const iconData = CITY_ICON.find(icon => icon.id === itemId);
+    return iconData ? iconData.icon : null;
+  };
 
   const zoomIn = () => {
     setRegion({
@@ -42,27 +49,29 @@ const HistoryMapScreen = forwardRef((props, ref) => {
     });
   };
 
-  const navigateToLocation = (coordinates) => {
-    mapRef.current.animateToRegion({
-      ...coordinates,
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
-    }, 1000);
+  const navigateToLocation = coordinates => {
+    mapRef.current.animateToRegion(
+      {
+        ...coordinates,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      },
+      1000,
+    );
   };
 
-  const renderCard = ({ item }) => (
+  const renderCard = ({item}) => (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigateToLocation(item.coordinates)}
-    >
+      onPress={() => navigateToLocation(item.coordinates)}>
       <Text style={styles.cardText}>{item.name}</Text>
       <Text style={styles.coordsText}>
-        Lat: {item.coordinates.latitude.toFixed(4)}, Lon: {item.coordinates.longitude.toFixed(4)}
+        Lat: {item.coordinates.latitude.toFixed(4)}, Lon:{' '}
+        {item.coordinates.longitude.toFixed(4)}
       </Text>
       <TouchableOpacity
         style={styles.levelButton}
-        onPress={() => navigation.navigate('LevelScreen', { levelData: item })}
-      >
+        onPress={() => navigation.navigate('LevelScreen', {levelData: item})}>
         <Text style={styles.levelButtonText}>Start Level</Text>
       </TouchableOpacity>
     </TouchableOpacity>
@@ -75,15 +84,18 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           ref={mapRef}
           style={styles.map}
           region={region}
-          onRegionChangeComplete={setRegion}
-        >
-          {gameData.map((item) => (
-            <Marker
-              key={item.id}
-              coordinate={item.coordinates}
-              title={item.name}
-            />
-          ))}
+          onRegionChangeComplete={setRegion}>
+          {gameData.map(item => {
+            const icon = getIconForItem(item.id);
+            return (
+              <Marker
+                key={item.id}
+                coordinate={item.coordinates}
+                title={item.name}>
+                {icon && <Image source={icon} style={styles.markerIcon} />}
+              </Marker>
+            );
+          })}
         </MapView>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={zoomIn}>
@@ -96,7 +108,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         <FlatList
           data={gameData}
           renderItem={renderCard}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           style={styles.cardList}
           showsVerticalScrollIndicator={false}
         />
@@ -122,10 +134,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    top: 10,
+    // top: 100,
     right: 10,
     flexDirection: 'column',
     gap: 10,
+    bottom:'50%'
   },
   button: {
     backgroundColor: Color.gold,
@@ -171,5 +184,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
+  },markerIcon: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
   },
 });

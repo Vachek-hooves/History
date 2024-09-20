@@ -146,8 +146,8 @@ export const GameData = [
       },
     ],
     coordinates: {
-      latitude: -43.53305,
-      longitude: 172.638,
+      latitude: -43.538,
+      longitude: 172.635,
     },
   },
   {
@@ -314,8 +314,8 @@ export const GameData = [
       },
     ],
     coordinates: {
-      latitude: -43.5331,
-      longitude: 172.638,
+      latitude: -43.5367,
+      longitude: 172.648,
     },
   },
   {
@@ -490,8 +490,8 @@ export const GameData = [
       },
     ],
     coordinates: {
-      latitude: -43.53,
-      longitude: 172.637,
+      latitude: -43.538,
+      longitude: 172.627,
     },
   },
   {
@@ -662,7 +662,7 @@ export const GameData = [
       },
     ],
     coordinates: {
-      latitude: -43.533,
+      latitude: -43.53,
       longitude: 172.644,
     },
   },
@@ -840,7 +840,7 @@ export const GameData = [
     ],
     coordinates: {
       latitude: -43.533,
-      longitude: 172.634,
+      longitude: 172.629,
     },
   },
   {
@@ -1005,8 +1005,8 @@ export const GameData = [
       },
     ],
     coordinates: {
-      latitude: -43.533,
-      longitude: 172.634,
+      latitude: -43.536,
+      longitude: 172.643,
     },
   },
   {
@@ -1162,7 +1162,7 @@ export const GameData = [
     ],
     coordinates: {
       latitude: -43.533,
-      longitude: 172.634,
+      longitude: 172.636,
     },
   },
 ];
