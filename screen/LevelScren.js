@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import {Color} from '../colors/color';
+import {GoBack} from '../components/ui/uiIcons';
 // import Icon from 'react-native-vector-icons/FontAwesome'; // Assuming you're using this icon library
 
 const LevelScreen = ({route, navigation}) => {
@@ -22,7 +23,6 @@ const LevelScreen = ({route, navigation}) => {
     <ImageBackground
       source={require('../assets/cardBG/church.jpg')}
       blurRadius={4}
-      
       style={styles.background}>
       <View style={styles.container}>
         <Text style={styles.header}>Chronicles of Time</Text>
@@ -54,6 +54,7 @@ const LevelScreen = ({route, navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
+      <GoBack />
     </ImageBackground>
   );
 };
@@ -68,7 +69,6 @@ const styles = StyleSheet.create({
     padding: 20,
     // backgroundColor: 'rgba(255,255,255,0.7)',
     paddingTop: 60,
-    
   },
   header: {
     fontSize: 28,

@@ -12,6 +12,7 @@ import {
 import {useHistoryContext} from '../store/storeContext';
 import {Color} from '../colors/color';
 import {CorrectIcon, WrongIcon} from '../components/ui/quizIcons';
+import {GoBack} from '../components/ui/uiIcons';
 // import Icon from 'react-native-vector-icons/Ionicons';
 
 const CircularProgress = ({progress}) => {
@@ -58,6 +59,9 @@ const QuizScreen = ({route, navigation}) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [shakeAnimation] = useState(new Animated.Value(0));
+  const [questionBgColor, setQuestionBgColor] = useState(
+    'rgba(255,255,255,0.4)',
+  );
 
   const questions = difficulty === 'easy' ? levelData.easy : levelData.hard;
 
@@ -82,19 +86,25 @@ const QuizScreen = ({route, navigation}) => {
     saveProgress(newProgress);
   };
 
-  const handleOptionPress = (option) => {
+  const handleOptionPress = option => {
     setSelectedOption(option);
-    const correct = difficulty === 'easy'
-      ? option === questions[currentQuestionIndex].correctAnswer
-      : option === questions[currentQuestionIndex].correctAnswer.toString();
+    const correct =
+      difficulty === 'easy'
+        ? option === questions[currentQuestionIndex].correctAnswer
+        : option === questions[currentQuestionIndex].correctAnswer.toString();
     setIsCorrect(correct);
 
     if (correct) {
       // Correct answer logic
       setScore(score + 1);
-      setTimeout(() => moveToNextQuestion(), 1000);
+      setQuestionBgColor(Color.lightGreen + 90);
+      setTimeout(() => {
+        moveToNextQuestion();
+        setQuestionBgColor('rgba(255,255,255,0.4)');
+      }, 1000);
     } else {
       // Incorrect answer animation
+      setQuestionBgColor(Color.deepRed + 90);
       Animated.sequence([
         Animated.timing(shakeAnimation, {
           toValue: 10,
@@ -117,7 +127,10 @@ const QuizScreen = ({route, navigation}) => {
           useNativeDriver: true,
         }),
       ]).start(() => {
-        setTimeout(() => moveToNextQuestion(), 1000);
+        setTimeout(() => {
+          moveToNextQuestion();
+          setQuestionBgColor('rgba(255,255,255,0.4)');
+        }, 2000);
       });
     }
   };
@@ -136,21 +149,20 @@ const QuizScreen = ({route, navigation}) => {
     const currentQuestion = questions[currentQuestionIndex];
 
     return (
-      <View style={styles.questionContainer}>
+      <View
+        style={[styles.questionContainer, {backgroundColor: questionBgColor}]}>
         <CircularProgress
           progress={(currentQuestionIndex + 1) / questions.length}
         />
         <Animated.View
           style={[
-            styles.questionContainer,
+            styles.questionTextContainer,
             {transform: [{translateX: shakeAnimation}]},
           ]}>
-          <Text style={styles.questionText}>
-            {currentQuestion.question}
-          </Text>
+          <Text style={styles.questionText}>{currentQuestion.question}</Text>
         </Animated.View>
         <View style={styles.optionsContainer}>
-          {difficulty === 'easy' 
+          {difficulty === 'easy'
             ? currentQuestion.options.map(renderOption)
             : renderTrueFalseOptions()}
         </View>
@@ -199,9 +211,11 @@ const QuizScreen = ({route, navigation}) => {
   };
 
   const renderTrueFalseOptions = () => {
-    return ['true', 'false'].map((option) => {
+    return ['true', 'false'].map(option => {
       const isSelected = selectedOption === option;
-      const isCorrect = isSelected && option === questions[currentQuestionIndex].correctAnswer.toString();
+      const isCorrect =
+        isSelected &&
+        option === questions[currentQuestionIndex].correctAnswer.toString();
 
       let optionStyle = styles.option;
       let textStyle = styles.optionText;
@@ -221,10 +235,15 @@ const QuizScreen = ({route, navigation}) => {
           key={option}
           style={optionStyle}
           onPress={() => handleOptionPress(option)}
-          disabled={selectedOption !== null}
-        >
-          <View style={[styles.optionGradient, isSelected ? styles.selectedOption : null]}>
-            <Text style={textStyle}>{option.charAt(0).toUpperCase() + option.slice(1)}</Text>
+          disabled={selectedOption !== null}>
+          <View
+            style={[
+              styles.optionGradient,
+              isSelected ? styles.selectedOption : null,
+            ]}>
+            <Text style={textStyle}>
+              {option.charAt(0).toUpperCase() + option.slice(1)}
+            </Text>
             {isSelected && isCorrect && <CorrectIcon />}
             {isSelected && !isCorrect && <WrongIcon />}
           </View>
@@ -257,7 +276,7 @@ const QuizScreen = ({route, navigation}) => {
           <Text style={styles.headerText}>{levelData.name}</Text>
           <Text style={styles.difficultyText}>Difficulty: {difficulty}</Text>
           {!showResult ? (
-              <>
+            <>
               {/* <Text style={styles.progressText}>
                 Question {Math.min(currentQuestionIndex + 1, questions.length)}{' '}
                 of {questions.length}
@@ -269,6 +288,7 @@ const QuizScreen = ({route, navigation}) => {
           )}
         </ScrollView>
       </SafeAreaView>
+      <GoBack />
     </ImageBackground>
   );
 };
@@ -307,18 +327,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   questionContainer: {
-    backgroundColor: 'rgba(255,255,255,0.4)',
     borderRadius: 10,
     padding: 20,
     marginBottom: 20,
-    
+  },
+  questionTextContainer: {
+    marginBottom: 20,
   },
   questionText: {
-    fontSize: 18,
+    fontSize: 22,
     color: Color.deepBlue,
     marginBottom: 20,
-    textAlign:'center',
-    height:100
+    textAlign: 'center',
+    height: 100,
   },
   option: {
     marginBottom: 15,
