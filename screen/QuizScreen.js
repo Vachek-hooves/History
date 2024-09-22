@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   questionText: {
-    fontSize: 22,
+    fontSize: 20,
     color: Color.deepBlue,
     marginBottom: 20,
     textAlign: 'center',
