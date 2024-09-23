@@ -52,6 +52,7 @@ const LibraryArticles = ({navigation}) => {
 
   return (
     <TabLaout>
+      <SafeAreaView></SafeAreaView>
       <TouchableOpacity
         style={styles.createButton}
         onPress={() => setModalVisible(true)}>
@@ -81,7 +82,9 @@ const LibraryArticles = ({navigation}) => {
         }}>
         <View style={styles.modalBackground}>
           <SafeAreaView></SafeAreaView>
-          <View style={styles.modalView}>
+          <ScrollView
+            // style={styles.modalView}
+            contentContainerStyle={styles.modalView}>
             <Text style={styles.modalText}>Create New Article</Text>
             <TouchableOpacity
               style={styles.createButton}
@@ -125,7 +128,7 @@ const LibraryArticles = ({navigation}) => {
               onPress={() => setModalVisible(false)}>
               <Text style={styles.buttonText}>Cancel</Text>
             </TouchableOpacity>
-          </View>
+          </ScrollView>
         </View>
       </Modal>
     </TabLaout>
@@ -201,7 +204,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: Color.white,
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -223,15 +226,20 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1,
+    borderWidth: 2,
     marginBottom: 10,
     padding: 10,
     width: '100%',
+    borderRadius: 12,
+    borderColor: Color.deepBlue,
+    maxHeight:85
   },
   previewImage: {
-    width: 100,
-    height: 100,
+    // width: 100,
+    height: 140,
     marginBottom: 10,
+    width: '60%',
+    borderRadius: 12,
   },
   modalButton: {
     backgroundColor: Color.deepBlue,
