@@ -39,6 +39,11 @@ const TabNavigator = () => {
         },
       }}>
       <Tab.Screen
+        name="HistoryGameScreen"
+        component={HistoryGameScreen}
+        options={{tabBarIcon: ({focused}) => <QuizIcon focused={focused} />}}
+      />
+      <Tab.Screen
         name="userScreen"
         component={CityHaractersScreen}
         options={{tabBarIcon: ({focused}) => <UserIcon focused={focused} />}}
@@ -47,11 +52,6 @@ const TabNavigator = () => {
         name="libraryArticles"
         component={LibraryArticles}
         options={{tabBarIcon: ({focused}) => <ArticleIcon focused={focused} />}}
-      />
-      <Tab.Screen
-        name="HistoryGameScreen"
-        component={HistoryGameScreen}
-        options={{tabBarIcon: ({focused}) => <QuizIcon focused={focused} />}}
       />
     </Tab.Navigator>
   );
