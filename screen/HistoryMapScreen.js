@@ -73,7 +73,6 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         if (!item.isLocked) {
           navigateToLocation(item.coordinates);
           setSelectedCard(item.id);
-          console.log(item.quizScore)
         }
       }}
       disabled={item.isLocked}>
@@ -82,6 +81,12 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         Lat: {item.coordinates.latitude.toFixed(4)}, Lon:{' '}
         {item.coordinates.longitude.toFixed(4)}
       </Text>
+      {!item.isLocked && (
+        <View style={styles.scoreContainer}>
+          <Text style={styles.scoreText}>Easy: {item.quizScore.easy}/10</Text>
+          <Text style={styles.scoreText}>Hard: {item.quizScore.hard}/10</Text>
+        </View>
+      )}
       {selectedCard === item.id && !item.isLocked && (
         <TouchableOpacity
           style={styles.levelButton}
@@ -202,6 +207,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 12,
     marginBottom: 10,
+  },
+  scoreContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 10,
+  },
+  scoreText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   levelButton: {
     backgroundColor: Color.deepBlue,
