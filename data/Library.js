@@ -56,7 +56,7 @@ export const Library = [
     Christchurch's art and literary scene is a reflection of its rich history, diverse community, and enduring spirit. Whether through classic paintings, modern sculptures, or thought-provoking literature, the city continues to inspire and be inspired, making it a vital part of New Zealand's cultural landscape.`,
   },
   {
-    image: require('../assets/imageArticle/art4png'),
+    image: require('../assets/imageArticle/art4.png'),
     level: 4,
     title:
       'Technological Development of Christchurch: From the Past to the Present',

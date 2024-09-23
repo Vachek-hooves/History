@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HistoryProvider} from './store/storeContext';
 import {
+  ArticleDetailScreen,
   HistoryGameScreen,
   HistoryIntroductionScreen,
   HistoryMapScreen,
@@ -70,11 +71,11 @@ function App() {
             name="HistoryIntroductionScreen"
             component={HistoryIntroductionScreen}
           />
-
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="HistoryMapScreen" component={HistoryMapScreen} />
           <Stack.Screen name="LevelScreen" component={LevelScren} />
           <Stack.Screen name="QuizScreen" component={QuizScreen} />
+          <Stack.Screen name="ArticleDetail" component={ArticleDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </HistoryProvider>
