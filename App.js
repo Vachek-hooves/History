@@ -14,8 +14,10 @@ import {
 import CityHaractersScreen from './screen/CityHaractersScreen';
 import {ArticleIcon, QuizIcon, UserIcon} from './components/ui/tabBtn';
 import {Color} from './colors/color';
+import {AppState, TouchableOpacity} from 'react-native';
+import {useEffect} from 'react';
 import SpeakerControl from './components/ui/speaker/SpeakerControl';
-import {TouchableOpacity} from 'react-native';
+import {setupPlayer,resetPlayer} from './components/ui/speaker/setupPlayer';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -70,6 +72,23 @@ const TabNavigator = () => {
 };
 
 function App() {
+  useEffect(() => {
+    setupPlayer();
+    // getDeviceInfo();
+
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState === 'background' || nextAppState === 'inactive') {
+        resetPlayer();
+      } else if (nextAppState === 'active') {
+        setupPlayer();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+      resetPlayer();
+    };
+  }, []);
   return (
     <HistoryProvider>
       <NavigationContainer>

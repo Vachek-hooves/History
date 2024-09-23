@@ -5,7 +5,7 @@ const OnIcon = () => {
   return (
     <View
       style={{
-        backgroundColor: focused ? Color.deepGreen : Color.lightBlue,
+        // backgroundColor: focused ? Color.deepGreen : Color.lightBlue,
         padding: 12,
         borderRadius: 30,
       }}>
@@ -14,7 +14,7 @@ const OnIcon = () => {
         style={{
           width: 30,
           height: 30,
-          tintColor: focused ? Color.gold : Color.white,
+          // tintColor: focused ? Color.gold : Color.white,
         }}
       />
     </View>
