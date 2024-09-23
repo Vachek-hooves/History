@@ -17,7 +17,7 @@ import {Color} from './colors/color';
 import {AppState, TouchableOpacity} from 'react-native';
 import {useEffect} from 'react';
 import SpeakerControl from './components/ui/speaker/SpeakerControl';
-import {setupPlayer,resetPlayer} from './components/ui/speaker/setupPlayer';
+import {setupPlayer, resetPlayer} from './components/ui/speaker/setupPlayer';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -74,7 +74,6 @@ const TabNavigator = () => {
 function App() {
   useEffect(() => {
     setupPlayer();
-    // getDeviceInfo();
 
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (nextAppState === 'background' || nextAppState === 'inactive') {
@@ -89,6 +88,7 @@ function App() {
       resetPlayer();
     };
   }, []);
+
   return (
     <HistoryProvider>
       <NavigationContainer>
