@@ -8,6 +8,7 @@ const OnIcon = () => {
         // backgroundColor: focused ? Color.deepGreen : Color.lightBlue,
         padding: 12,
         borderRadius: 30,
+        backgroundColor:Color.lightBlue
       }}>
       <Image
         source={require('../../../assets/icon/on.png')}
@@ -15,6 +16,7 @@ const OnIcon = () => {
           width: 30,
           height: 30,
           // tintColor: focused ? Color.gold : Color.white,
+          tintColor: Color.gold,
         }}
       />
     </View>

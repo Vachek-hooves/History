@@ -8,12 +8,14 @@ const OffIcon = () => {
         // backgroundColor: focused ? Color.deepGreen : Color.lightBlue,
         padding: 12,
         borderRadius: 30,
+        backgroundColor: Color.lightBlue,
       }}>
       <Image
         source={require('../../../assets/icon/off.png')}
         style={{
           width: 30,
           height: 30,
+          tintColor: Color.deepRed,
           // tintColor: focused ? Color.gold : Color.white,
           // tintColor:
         }}
