@@ -8,9 +8,11 @@ export const HistoryProvider = ({children}) => {
   const [gameData, setGameData] = useState([]);
   const [currentLevel, setCurrentLevel] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [newArticles, setNewArticles] = useState([]);
 
   useEffect(() => {
     loadGameData();
+    loadNewArticles();
   }, []);
 
   const loadGameData = async () => {
@@ -31,6 +33,17 @@ export const HistoryProvider = ({children}) => {
     }
   };
 
+  const loadNewArticles = async () => {
+    try {
+      const savedArticles = await AsyncStorage.getItem('newArticles');
+      if (savedArticles !== null) {
+        setNewArticles(JSON.parse(savedArticles));
+      }
+    } catch (error) {
+      console.error('Error loading new articles:', error);
+    }
+  };
+
   const saveGameData = async (updatedGameData) => {
     try {
       await AsyncStorage.setItem('gameData', JSON.stringify(updatedGameData));
@@ -38,6 +51,20 @@ export const HistoryProvider = ({children}) => {
     } catch (error) {
       console.error('Error saving game data:', error);
     }
+  };
+
+  const saveNewArticles = async (articles) => {
+    try {
+      await AsyncStorage.setItem('newArticles', JSON.stringify(articles));
+      setNewArticles(articles);
+    } catch (error) {
+      console.error('Error saving new articles:', error);
+    }
+  };
+
+  const createNewArticle = async (article) => {
+    const updatedArticles = [...newArticles, article];
+    await saveNewArticles(updatedArticles);
   };
 
   const unlockNextLevel = (currentLevelId) => {
@@ -127,7 +154,10 @@ export const HistoryProvider = ({children}) => {
     return hardTotal >= 22 && nextLevel && nextLevel.isLocked;
   };
 
-  
+  const deleteArticle = async (articleToDelete) => {
+    const updatedArticles = newArticles.filter(article => article !== articleToDelete);
+    await saveNewArticles(updatedArticles);
+  };
 
   const value = {
     gameData,
@@ -140,6 +170,9 @@ export const HistoryProvider = ({children}) => {
     calculateTotalScores,
     canUnlockNextLevelWithHardScore,  // Add this line
     unlockNextLevelWithHardScore,     // Add this line
+    newArticles, // Add this line
+    createNewArticle, // Add this line
+    deleteArticle, // Add this line
   };
 
   if (isLoading) {

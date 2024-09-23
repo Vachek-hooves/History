@@ -88,10 +88,10 @@ const HistoryMapScreen = forwardRef((props, ref) => {
       }}
       disabled={item.isLocked}>
       <Text style={styles.cardText}>{item.name}</Text>
-      <Text style={styles.coordsText}>
+      {/* <Text style={styles.coordsText}>
         Lat: {item.coordinates.latitude.toFixed(4)}, Lon:{' '}
         {item.coordinates.longitude.toFixed(4)}
-      </Text>
+      </Text> */}
       {!item.isLocked && (
         <View style={styles.scoreContainer}>
           <Text style={styles.scoreText}>Easy: {item.quizScore.easy}/10</Text>

@@ -31,14 +31,14 @@ export default ArticleDetailScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: Color.lightGreen,
+    backgroundColor: Color.deepBlue,
   },
   imageContainer: {
     position: 'relative',
   },
   container: {
     padding: 20,
-    backgroundColor: Color.lightGreen,
+    backgroundColor: Color.deepBlue,
   },
   image: {
     width: '100%',
@@ -49,12 +49,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: Color.deepBlue,
+    color: Color.white,
     marginBottom: 20,
   },
   content: {
     fontSize: 16,
-    color: Color.deepBlue,
+    color: Color.white,
     lineHeight: 24,
   },
 });
