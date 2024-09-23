@@ -1,6 +1,6 @@
 export const Library = [
   {
-    image: '',
+    image: require('../assets/imageArticle/art1.png'),
     level: 1,
     title:
       'The Founding of Christchurch: The History of Its Origins and Development',
@@ -19,7 +19,7 @@ export const Library = [
     Today, Christchurch is a modern city that cherishes its history. Visitors can explore historic buildings, museums, and parks that reflect the city's journey from a small settlement to a lively contemporary city.`,
   },
   {
-    image: '',
+    image: require('../assets/imageArticle/art2.png'),
     level: 2,
     title: 'The Avon River: The Lifeblood of Christchurch',
     content: `The Avon River is not only a natural beauty of Christchurch but also a crucial part of its history and development. For centuries, this river has been an integral part of city life, influencing its economy, culture, and overall landscape. Let's explore the role of the Avon River in the history and development of Christchurch and its cultural and economic significance to the city's residents.
@@ -37,7 +37,7 @@ export const Library = [
     The Avon River remains the lifeblood of Christchurch, continuing to influence its cultural, economic, and social life. It is a reminder of the city's rich heritage and its ability to recover and thrive.`,
   },
   {
-    image: '',
+    image: require('../assets/imageArticle/art3.png'),
     level: 3,
     title: 'Art and Literature of Christchurch: From Classics to Contemporary',
     content: `Christchurch, located on New Zealand’s South Island, is not only known for its natural beauty and historical significance but also for its vibrant art and literary scene. The city has a rich cultural heritage that spans from classical influences to contemporary innovations, making it a hub for artists, writers, and creatives of all kinds. Let's explore the evolution of art and literature in Christchurch, from its classical roots to its modern-day expressions.
@@ -56,7 +56,7 @@ export const Library = [
     Christchurch's art and literary scene is a reflection of its rich history, diverse community, and enduring spirit. Whether through classic paintings, modern sculptures, or thought-provoking literature, the city continues to inspire and be inspired, making it a vital part of New Zealand's cultural landscape.`,
   },
   {
-    image: '',
+    image: require('../assets/imageArticle/art4png'),
     level: 4,
     title:
       'Technological Development of Christchurch: From the Past to the Present',
@@ -77,7 +77,7 @@ export const Library = [
     The technological development of Christchurch reflects its ability to adapt to change and leverage new opportunities to enhance the lives of its residents. As its history demonstrates, the city remains committed to innovation and improvement, laying the foundation for a successful and sustainable future.`,
   },
   {
-    image: '',
+    image: require('../assets/imageArticle/art5.png'),
     level: 5,
     title: 'Green Christchurch: Parks and Gardens of the City',
     content: `Christchurch, often referred to as the “Garden City,” is renowned for its extensive green spaces, parks, and gardens that enhance its urban environment and quality of life. These green areas offer residents and visitors a respite from the hustle and bustle of city life, providing recreational opportunities and contributing to the city's environmental sustainability.
@@ -112,7 +112,7 @@ export const Library = [
     Christchurch’s commitment to green spaces and gardens reflects its dedication to enhancing the quality of life for its residents and preserving its natural heritage. With its historical roots in garden city ideals and a forward-looking approach to sustainability, Christchurch continues to thrive as a model of urban green space integration. Whether through expansive parks, community gardens, or innovative green infrastructure, the city’s green legacy is a vital part of its identity and future.`,
   },
   {
-    image: '',
+    image: require('../assets/imageArticle/art6.png'),
     level: 6,
     title:
       'Gothic Architecture in Christchurch: The Legacy of the Victorian Era',
@@ -127,7 +127,7 @@ export const Library = [
     Christchurch's Gothic architecture stands as a lasting tribute to the Victorian era, capturing the essence of a bygone age. Through ongoing restoration efforts and a commitment to preserving its historical buildings, the city honors its architectural past while looking towards a future that respects and celebrates its heritage.`,
   },
   {
-    image: '',
+    image: require('../assets/imageArticle/art7.png'),
     level: 7,
     title: 'Cultural Mosaic of Christchurch: A Multicultural City',
     content: `Christchurch, New Zealand's largest city on the South Island, is renowned for its vibrant and diverse cultural landscape. Initially founded as a predominantly British settlement, the city has evolved into a multicultural hub, reflecting a rich tapestry of global influences.
