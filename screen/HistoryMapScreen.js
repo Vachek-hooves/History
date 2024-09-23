@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     // width: '80%',
     // marginTop: 10,
     position: 'absolute',
-    top: '45%',
+    top: '35%',
     gap: 20,
     right: 20,
   },
