@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   FlatList,
   Image,
+  Vibration,
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {Color} from '../colors/color';
@@ -102,9 +103,10 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.levelButton}
-            onPress={() =>
-              navigation.navigate('LevelScreen', {levelData: item})
-            }>
+            onPress={() => {
+              navigation.navigate('LevelScreen', {levelData: item});
+              Vibration.vibrate();
+            }}>
             <Text style={styles.levelButtonText}>Start Level</Text>
           </TouchableOpacity>
           {canUnlockNextLevelWithHardScore(item.id) && (
