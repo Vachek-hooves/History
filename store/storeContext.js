@@ -5,32 +5,38 @@ import {GameData} from '../data/data';
 export const HistoryContext = createContext({});
 
 export const HistoryProvider = ({children}) => {
-  const [gameData, setGameData] = useState(GameData);
+  const [gameData, setGameData] = useState([]);
   const [currentLevel, setCurrentLevel] = useState(1);
-  const [userProgress, setUserProgress] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load user progress from AsyncStorage when the component mounts
-    loadProgress();
+    loadGameData();
   }, []);
 
-  const loadProgress = async () => {
+  const loadGameData = async () => {
     try {
-      const savedProgress = await AsyncStorage.getItem('userProgress');
-      if (savedProgress !== null) {
-        setUserProgress(JSON.parse(savedProgress));
+      const savedGameData = await AsyncStorage.getItem('gameData');
+      if (savedGameData !== null) {
+        setGameData(JSON.parse(savedGameData));
+      } else {
+        // If no saved data, use the initial GameData and save it to AsyncStorage
+        setGameData(GameData);
+        await AsyncStorage.setItem('gameData', JSON.stringify(GameData));
       }
     } catch (error) {
-      console.error('Error loading progress:', error);
+      console.error('Error loading game data:', error);
+      setGameData(GameData); // Fallback to initial data if there's an error
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const saveProgress = async (newProgress) => {
+  const saveGameData = async (updatedGameData) => {
     try {
-      await AsyncStorage.setItem('userProgress', JSON.stringify(newProgress));
-      setUserProgress(newProgress);
+      await AsyncStorage.setItem('gameData', JSON.stringify(updatedGameData));
+      setGameData(updatedGameData);
     } catch (error) {
-      console.error('Error saving progress:', error);
+      console.error('Error saving game data:', error);
     }
   };
 
@@ -41,8 +47,7 @@ export const HistoryProvider = ({children}) => {
       }
       return level;
     });
-    setGameData(updatedGameData);
-    AsyncStorage.setItem('gameData', JSON.stringify(updatedGameData));
+    saveGameData(updatedGameData);
   };
 
   const saveScore = async (levelId, difficulty, score) => {
@@ -60,8 +65,7 @@ export const HistoryProvider = ({children}) => {
         return level;
       });
       
-      setGameData(updatedGameData);
-      await AsyncStorage.setItem('gameData', JSON.stringify(updatedGameData));
+      saveGameData(updatedGameData);
     } catch (error) {
       console.error('Error saving score:', error);
     }
@@ -69,14 +73,18 @@ export const HistoryProvider = ({children}) => {
 
   const value = {
     gameData,
-    setGameData,
+    setGameData: saveGameData,
     currentLevel,
     setCurrentLevel,
-    userProgress,
-    saveProgress,
     unlockNextLevel,
     saveScore,
+    isLoading,
   };
+
+  if (isLoading) {
+    // You might want to return a loading indicator here
+    return null;
+  }
 
   return (
     <HistoryContext.Provider value={value}>{children}</HistoryContext.Provider>
