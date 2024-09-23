@@ -24,7 +24,12 @@ const initialRegion = {
 
 const HistoryMapScreen = forwardRef((props, ref) => {
   const [region, setRegion] = useState(initialRegion);
-  const {gameData, calculateTotalScores} = useHistoryContext();
+  const {
+    gameData,
+    calculateTotalScores,
+    canUnlockNextLevelWithHardScore,
+    unlockNextLevelWithHardScore,
+  } = useHistoryContext();
   const navigation = useNavigation();
   const mapRef = useRef(null);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -78,7 +83,6 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         if (!item.isLocked) {
           navigateToLocation(item.coordinates);
           setSelectedCard(item.id);
-          console.log(item.quizScore);
         }
       }}
       disabled={item.isLocked}>
@@ -94,11 +98,25 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         </View>
       )}
       {selectedCard === item.id && !item.isLocked && (
-        <TouchableOpacity
-          style={styles.levelButton}
-          onPress={() => navigation.navigate('LevelScreen', {levelData: item})}>
-          <Text style={styles.levelButtonText}>Start Level</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.levelButton}
+            onPress={() =>
+              navigation.navigate('LevelScreen', {levelData: item})
+            }>
+            <Text style={styles.levelButtonText}>Start Level</Text>
+          </TouchableOpacity>
+          {canUnlockNextLevelWithHardScore(item.id) && (
+            <TouchableOpacity
+              style={[styles.levelButton, styles.unlockButton]}
+              onPress={() => {
+                unlockNextLevelWithHardScore(item.id);
+                setSelectedCard(null);
+              }}>
+              <Text style={styles.levelButtonText}>Unlock Next (16 Hard)</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       )}
     </TouchableOpacity>
   );
@@ -181,12 +199,10 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   buttonContainer: {
-    position: 'absolute',
-    // top: 100,
-    right: 10,
-    flexDirection: 'column',
-    gap: 10,
-    bottom: '50%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: 10,
   },
   button: {
     backgroundColor: Color.lightBlue,
@@ -238,12 +254,17 @@ const styles = StyleSheet.create({
     backgroundColor: Color.deepBlue,
     padding: 8,
     borderRadius: 5,
-    marginTop: 5,
+    flex: 1,
+    marginHorizontal: 5,
   },
   levelButtonText: {
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  unlockButton: {
+    backgroundColor: Color.gold,
   },
   markerIcon: {
     width: 60,

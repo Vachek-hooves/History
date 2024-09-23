@@ -90,6 +90,44 @@ export const HistoryProvider = ({children}) => {
       console.error('Error saving score:', error);
     }
   };
+  const unlockNextLevelWithHardScore = (currentLevelId) => {
+    if (canUnlockNextLevelWithHardScore(currentLevelId)) {
+      const updatedGameData = gameData.map(level => {
+        if (level.id === `c${parseInt(currentLevelId.slice(1)) + 1}`) {
+          return { ...level, isLocked: false };
+        }
+        return level;
+      });
+      
+      // Deduct 16 points from the total hard score
+      const { hardTotal } = calculateTotalScores();
+      const remainingHardScore = hardTotal - 22;
+      
+      // Distribute the remaining score back to the levels
+      let remainingToDistribute = remainingHardScore;
+      updatedGameData.forEach(level => {
+        if (remainingToDistribute > 0) {
+          const currentScore = parseInt(level.quizScore.hard);
+          const scoreToAdd = Math.min(currentScore, remainingToDistribute);
+          level.quizScore.hard = scoreToAdd.toString();
+          remainingToDistribute -= scoreToAdd;
+        } else {
+          level.quizScore.hard = '0';
+        }
+      });
+
+      saveGameData(updatedGameData);
+    }
+  };
+
+  const canUnlockNextLevelWithHardScore = (currentLevelId) => {
+    const { hardTotal } = calculateTotalScores();
+    const nextLevelId = `c${parseInt(currentLevelId.slice(1)) + 1}`;
+    const nextLevel = gameData.find(level => level.id === nextLevelId);
+    return hardTotal >= 22 && nextLevel && nextLevel.isLocked;
+  };
+
+  
 
   const value = {
     gameData,
@@ -100,6 +138,8 @@ export const HistoryProvider = ({children}) => {
     saveScore,
     isLoading,
     calculateTotalScores,
+    canUnlockNextLevelWithHardScore,  // Add this line
+    unlockNextLevelWithHardScore,     // Add this line
   };
 
   if (isLoading) {
