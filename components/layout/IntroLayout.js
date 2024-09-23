@@ -1,4 +1,10 @@
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 const IntroLayout = ({children}) => {
   return (
@@ -6,6 +12,7 @@ const IntroLayout = ({children}) => {
       source={require('../../assets/cardBG/intro.jpg')}
       style={{flex: 1}}
       resizeMode="cover">
+      <SafeAreaView style={{marginTop: '40%'}}></SafeAreaView>
       {children}
     </ImageBackground>
   );
