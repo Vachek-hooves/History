@@ -12,9 +12,11 @@ const HistoryIntroductionScreen = ({navigation}) => {
     }).start(() => navigation.navigate('TabNavigator'));
   }, [animation]);
 
-  return <IntroLayout>
-    
-  </IntroLayout>;
+  return (
+    <IntroLayout>
+      <Text>Your exploration begins now!</Text>
+    </IntroLayout>
+  );
 };
 
 export default HistoryIntroductionScreen;
