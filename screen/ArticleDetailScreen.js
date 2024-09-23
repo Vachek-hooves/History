@@ -13,10 +13,12 @@ const ArticleDetailScreen = ({route}) => {
   const {article} = route.params;
 
   return (
-    <View>
-      <ScrollView contentContainerStyle={styles.container}>
-        <SafeAreaView></SafeAreaView>
+    <View style={styles.screen}>
+      <View style={styles.imageContainer}>
         <Image source={article.image} style={styles.image} />
+        <GoBack />
+      </View>
+      <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>{article.title}</Text>
         <Text style={styles.content}>{article.content}</Text>
       </ScrollView>
@@ -27,12 +29,20 @@ const ArticleDetailScreen = ({route}) => {
 export default ArticleDetailScreen;
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: Color.lightGreen,
+  },
+  imageContainer: {
+    position: 'relative',
+  },
   container: {
     padding: 20,
+    backgroundColor: Color.lightGreen,
   },
   image: {
     width: '100%',
-    height: 200,
+    height: 260,
     borderRadius: 10,
     marginBottom: 20,
   },
