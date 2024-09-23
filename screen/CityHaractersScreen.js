@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {TabLaout} from '../components/layout';
 
 const CityHaractersScreen = () => {
   return (
-    <View>
-      <Text>CityHaractersScreen</Text>
-    </View>
+    <TabLaout>
+      <Text>User screen</Text>
+    </TabLaout>
   );
 };
 

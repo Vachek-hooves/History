@@ -14,6 +14,7 @@ import {Color} from '../colors/color';
 import {useHistoryContext} from '../store/storeContext';
 import {useNavigation} from '@react-navigation/native';
 import {CITY_ICON} from '../data/cityIconData';
+import {GoBack, GoBackMap} from '../components/ui/uiIcons';
 
 const initialRegion = {
   latitude: -43.53205162938437,
@@ -176,6 +177,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           style={styles.cardList}
           showsVerticalScrollIndicator={false}
         />
+        <GoBackMap />
       </SafeAreaView>
     </View>
   );
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '50%', // Reduced map height to accommodate the vertical list
+    height: '40%', // Reduced map height to accommodate the vertical list
     borderRadius: 24,
   },
   buttonContainer: {

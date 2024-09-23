@@ -1,12 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {TabLaout} from '../components/layout';
 
 const LibraryArticles = () => {
-  return (
-    <View>
-      <Text>LibraryArticles</Text>
-    </View>
-  );
+  return <TabLaout></TabLaout>;
 };
 
 export default LibraryArticles;

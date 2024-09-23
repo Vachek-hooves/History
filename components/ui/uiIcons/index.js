@@ -1,3 +1,4 @@
 import GoBack from './GoBack';
+import GoBackMap from './GoBackMap';
 
-export {GoBack};
+export {GoBack, GoBackMap};

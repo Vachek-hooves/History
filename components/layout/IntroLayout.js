@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 
-const IntroLayout = () => {
+const IntroLayout = ({children}) => {
   return (
-    <View>
-      <Text>IntroLayout</Text>
-    </View>
+    <ImageBackground
+      source={require('../../assets/cardBG/intro.jpg')}
+      style={{flex: 1}}
+      resizeMode="cover">
+      {children}
+    </ImageBackground>
   );
 };
 
