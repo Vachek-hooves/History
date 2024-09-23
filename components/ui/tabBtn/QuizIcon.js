@@ -7,7 +7,7 @@ const QuizIcon = ({focused}) => {
       style={{
         backgroundColor: focused ? Color.deepGreen : Color.lightBlue,
         padding: 12,
-        borderRadius: 30,
+        borderRadius: 12,
       }}>
       <Image
         source={require('../../../assets/icon/quiz.png')}

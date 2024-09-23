@@ -7,7 +7,7 @@ const OnIcon = () => {
       style={{
         // backgroundColor: focused ? Color.deepGreen : Color.lightBlue,
         padding: 12,
-        borderRadius: 30,
+        borderRadius: 12,
         backgroundColor:Color.lightBlue
       }}>
       <Image
