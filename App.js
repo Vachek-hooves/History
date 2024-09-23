@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -15,9 +16,8 @@ import CityHaractersScreen from './screen/CityHaractersScreen';
 import {ArticleIcon, QuizIcon, UserIcon} from './components/ui/tabBtn';
 import {Color} from './colors/color';
 import {AppState, TouchableOpacity} from 'react-native';
-import {useEffect} from 'react';
+import {setupPlayer, resetPlayer, playBackgroundMusic} from './components/ui/speaker/setupPlayer';
 import SpeakerControl from './components/ui/speaker/SpeakerControl';
-import {setupPlayer, resetPlayer} from './components/ui/speaker/setupPlayer';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -72,22 +72,44 @@ const TabNavigator = () => {
 };
 
 function App() {
+  const [isPlayerReady, setIsPlayerReady] = useState(false);
+
   useEffect(() => {
-    setupPlayer();
+    let isMounted = true;
+
+    const initializePlayer = async () => {
+      try {
+        await setupPlayer();
+        if (isMounted) {
+          setIsPlayerReady(true);
+          playBackgroundMusic();
+        }
+      } catch (error) {
+        console.error('Error initializing player:', error);
+      }
+    };
+
+    initializePlayer();
 
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (nextAppState === 'background' || nextAppState === 'inactive') {
         resetPlayer();
       } else if (nextAppState === 'active') {
-        setupPlayer();
+        initializePlayer();
       }
     });
 
     return () => {
+      isMounted = false;
       subscription.remove();
       resetPlayer();
     };
   }, []);
+
+  if (!isPlayerReady) {
+    // You might want to show a loading screen here
+    return null;
+  }
 
   return (
     <HistoryProvider>
