@@ -70,7 +70,7 @@ const QuizScreen = ({route, navigation}) => {
     if (currentQuestionIndex >= questions.length) {
       setShowResult(true);
       saveScore(levelData.id, difficulty, score);
-      if (score >= 8) {
+      if (difficulty === 'easy' && score >= 8) {
         setShowUnlockButton(true);
         unlockNextLevel(levelData.id);
       }
@@ -258,7 +258,7 @@ const QuizScreen = ({route, navigation}) => {
         onPress={() => navigation.goBack()}>
         <Text style={styles.backButtonText}>Back to Level</Text>
       </TouchableOpacity>
-      {showUnlockButton && (
+      {showUnlockButton && difficulty === 'easy' && (
         <TouchableOpacity
           style={[styles.backButton, styles.unlockButton]}
           onPress={handleUnlockNextLevel}>
