@@ -28,7 +28,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
   const navigation = useNavigation();
   const mapRef = useRef(null);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [totalScores, setTotalScores] = useState({ easyTotal: 0, hardTotal: 0 });
+  const [totalScores, setTotalScores] = useState({easyTotal: 0, hardTotal: 0});
 
   useEffect(() => {
     const scores = calculateTotalScores();
@@ -78,7 +78,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         if (!item.isLocked) {
           navigateToLocation(item.coordinates);
           setSelectedCard(item.id);
-          console.log(item.quizScore)
+          console.log(item.quizScore);
         }
       }}
       disabled={item.isLocked}>
@@ -107,8 +107,12 @@ const HistoryMapScreen = forwardRef((props, ref) => {
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.totalScoreContainer}>
-          <Text style={styles.totalScoreText}>Total Easy Score: {totalScores.easyTotal}</Text>
-          <Text style={styles.totalScoreText}>Total Hard Score: {totalScores.hardTotal}</Text>
+          <Text style={styles.totalScoreText}>
+            Total Easy Score: {totalScores.easyTotal}
+          </Text>
+          <Text style={styles.totalScoreText}>
+            Total Hard Score: {totalScores.hardTotal}
+          </Text>
         </View>
         <MapView
           ref={mapRef}
@@ -212,6 +216,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     marginBottom: 5,
+    textAlign: 'center',
   },
   coordsText: {
     color: 'white',
