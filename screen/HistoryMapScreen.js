@@ -161,12 +161,12 @@ const HistoryMapScreen = forwardRef((props, ref) => {
             );
           })}
         </MapView>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={zoomIn}>
-            <Text style={styles.buttonText}>+</Text>
+        <View style={styles.buttonContainerMap}>
+          <TouchableOpacity style={styles.buttonMap} onPress={zoomIn}>
+            <Text style={styles.buttonTextMap}>+</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={zoomOut}>
-            <Text style={styles.buttonText}>-</Text>
+          <TouchableOpacity style={styles.buttonMap} onPress={zoomOut}>
+            <Text style={styles.buttonTextMap}>-</Text>
           </TouchableOpacity>
         </View>
         <FlatList
@@ -203,6 +203,26 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     marginTop: 10,
+  },
+  buttonContainerMap: {
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // width: '80%',
+    // marginTop: 10,
+    position: 'absolute',
+    top: '45%',
+    gap: 20,
+    right: 20,
+  },
+  buttonTextMap: {
+    fontSize: 20,
+    color: 'white',
+  },
+  buttonMap: {
+    backgroundColor: Color.lightBlue,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
   },
   button: {
     backgroundColor: Color.lightBlue,
