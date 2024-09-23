@@ -14,6 +14,8 @@ import {
 import CityHaractersScreen from './screen/CityHaractersScreen';
 import {ArticleIcon, QuizIcon, UserIcon} from './components/ui/tabBtn';
 import {Color} from './colors/color';
+import SpeakerControl from './components/ui/speaker/SpeakerControl';
+import {TouchableOpacity} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -52,6 +54,16 @@ const TabNavigator = () => {
         name="libraryArticles"
         component={LibraryArticles}
         options={{tabBarIcon: ({focused}) => <ArticleIcon focused={focused} />}}
+      />
+      <Tab.Screen
+        name="Speaker"
+        component={SpeakerControl}
+        options={{
+          tabBarIcon: () => <SpeakerControl />,
+          tabBarButton: props => (
+            <TouchableOpacity {...props} onPress={() => {}} />
+          ),
+        }}
       />
     </Tab.Navigator>
   );
