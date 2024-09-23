@@ -1,16 +1,93 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {TabLaout} from '../components/layout';
+import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
+import {Color} from '../colors/color';
+import {GoBack} from '../components/ui/uiIcons';
 
-const HistoryGameScreen = ({navigation}) => {
+const QuizDescriptionScreen = ({navigation}) => {
   return (
-    <TabLaout>
-      <TouchableOpacity onPress={() => navigation.navigate('HistoryMapScreen')}>
-        <Text> Game</Text>
-      </TouchableOpacity>
-    </TabLaout>
+    <ImageBackground
+      source={require('../assets/cardBG/church.jpg')}
+      blurRadius={4}
+      style={styles.background}>
+      <View style={styles.container}>
+        <Text style={styles.header}>Chronicles of Time</Text>
+
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.descriptionText}>
+            Step into Christchurch Through Time, an immersive journey where
+            history, culture, and modern life blend together. Explore the city's
+            evolution through interactive zones, each representing a unique
+            chapter in Christchurch’s story.
+          </Text>
+          <Text style={styles.descriptionText}>
+            Your exploration begins now!
+          </Text>
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('HistoryMapScreen')}>
+            <Text style={styles.buttonText}>Start Quiz</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ImageBackground>
   );
 };
 
-export default HistoryGameScreen;
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+  },
+  container: {
+    flex: 0.8,
+    padding: 20,
+    paddingTop: 60,
+  },
+  header: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: Color.deepBlue,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  descriptionContainer: {
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    borderRadius: 10,
+    padding: 15,
+    marginBottom: 20,
+  },
+  descriptionText: {
+    fontSize: 30,
+    color: Color.deepBlue,
+    lineHeight: 38,
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+    borderRadius: 25,
+    width: '45%',
+    backgroundColor: Color.deepBlue,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+});
 
-const styles = StyleSheet.create({});
+export default QuizDescriptionScreen;
