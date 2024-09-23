@@ -15,8 +15,12 @@ import {
 import CityHaractersScreen from './screen/CityHaractersScreen';
 import {ArticleIcon, QuizIcon, UserIcon} from './components/ui/tabBtn';
 import {Color} from './colors/color';
-import {AppState, TouchableOpacity} from 'react-native';
-import {setupPlayer, resetPlayer, playBackgroundMusic} from './components/ui/speaker/setupPlayer';
+import {AppState, TouchableOpacity, Vibration} from 'react-native';
+import {
+  setupPlayer,
+  resetPlayer,
+  playBackgroundMusic,
+} from './components/ui/speaker/setupPlayer';
 import SpeakerControl from './components/ui/speaker/SpeakerControl';
 
 const Stack = createNativeStackNavigator();
@@ -63,7 +67,13 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: () => <SpeakerControl />,
           tabBarButton: props => (
-            <TouchableOpacity {...props} onPress={() => {}} />
+            <TouchableOpacity
+              {...props}
+              onPress={() => {
+                Vibration.vibrate();
+                props.onPress();
+              }}
+            />
           ),
         }}
       />
