@@ -6,6 +6,7 @@ import HistoryIntroductionScreen from './HistoryIntroductionScreen';
 import LevelScren from './LevelScren';
 import QuizScreen from './QuizScreen';
 import LibraryArticles from './LibraryArticles';
+import ArticleDetailScreen from './ArticleDetailScreen';
 
 export {
   HistoryGameScreen,
@@ -16,4 +17,5 @@ export {
   LevelScren,
   QuizScreen,
   LibraryArticles,
+  ArticleDetailScreen,
 };
