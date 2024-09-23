@@ -1,4 +1,4 @@
-import React, {useState, forwardRef, useRef} from 'react';
+import React, {useState, forwardRef, useRef, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -24,11 +24,16 @@ const initialRegion = {
 
 const HistoryMapScreen = forwardRef((props, ref) => {
   const [region, setRegion] = useState(initialRegion);
-  const {gameData, } = useHistoryContext();
+  const {gameData, calculateTotalScores} = useHistoryContext();
   const navigation = useNavigation();
   const mapRef = useRef(null);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [totalScores, setTotalScores] = useState({ easyTotal: 0, hardTotal: 0 });
 
+  useEffect(() => {
+    const scores = calculateTotalScores();
+    setTotalScores(scores);
+  }, [gameData]);
 
   const getIconForItem = itemId => {
     const iconData = CITY_ICON.find(icon => icon.id === itemId);
@@ -101,6 +106,10 @@ const HistoryMapScreen = forwardRef((props, ref) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
+        <View style={styles.totalScoreContainer}>
+          <Text style={styles.totalScoreText}>Total Easy Score: {totalScores.easyTotal}</Text>
+          <Text style={styles.totalScoreText}>Total Hard Score: {totalScores.hardTotal}</Text>
+        </View>
         <MapView
           ref={mapRef}
           style={styles.map}
@@ -245,5 +254,18 @@ const styles = StyleSheet.create({
   selectedCard: {
     borderColor: Color.deepBlue,
     borderWidth: 3,
+  },
+  totalScoreContainer: {
+    backgroundColor: Color.deepBlue,
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  totalScoreText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });

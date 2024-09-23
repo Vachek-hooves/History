@@ -50,6 +50,25 @@ export const HistoryProvider = ({children}) => {
     saveGameData(updatedGameData);
   };
 
+  const calculateTotalScores = () => {
+    let easyTotal = 0;
+    let hardTotal = 0;
+    gameData.forEach(level => {
+      easyTotal += parseInt(level.quizScore.easy);
+      hardTotal += parseInt(level.quizScore.hard);
+    });
+    return { easyTotal, hardTotal };
+  };
+
+  const saveTotalScores = async () => {
+    const { easyTotal, hardTotal } = calculateTotalScores();
+    try {
+      await AsyncStorage.setItem('totalScores', JSON.stringify({ easyTotal, hardTotal }));
+    } catch (error) {
+      console.error('Error saving total scores:', error);
+    }
+  };
+
   const saveScore = async (levelId, difficulty, score) => {
     try {
       const updatedGameData = gameData.map(level => {
@@ -65,7 +84,8 @@ export const HistoryProvider = ({children}) => {
         return level;
       });
       
-      saveGameData(updatedGameData);
+      await saveGameData(updatedGameData);
+      await saveTotalScores();
     } catch (error) {
       console.error('Error saving score:', error);
     }
@@ -79,6 +99,7 @@ export const HistoryProvider = ({children}) => {
     unlockNextLevel,
     saveScore,
     isLoading,
+    calculateTotalScores,
   };
 
   if (isLoading) {
