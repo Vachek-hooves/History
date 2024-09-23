@@ -1,5 +1,6 @@
 export const GameData = [
   {
+    quizScore: {easy: '0', hard: '0'},
     id: 'c1',
     isLocked: false,
     story:
@@ -151,6 +152,7 @@ export const GameData = [
     },
   },
   {
+    quizScore: {easy: '0', hard: '0'},
     id: 'c2',
     isLocked: false,
     story:
@@ -319,6 +321,7 @@ export const GameData = [
     },
   },
   {
+    quizScore: {easy: '0', hard: '0'},
     id: 'c3',
     isLocked: false,
     story:
@@ -495,6 +498,7 @@ export const GameData = [
     },
   },
   {
+    quizScore: {easy: '0', hard: '0'},
     id: 'c4',
     isLocked: true,
     story:
@@ -667,6 +671,7 @@ export const GameData = [
     },
   },
   {
+    quizScore: {easy: '0', hard: '0'},
     id: 'c5',
     isLocked: true,
     story:
@@ -844,6 +849,7 @@ export const GameData = [
     },
   },
   {
+    quizScore: {easy: '0', hard: '0'},
     id: 'c6',
     isLocked: true,
     story:
@@ -1010,6 +1016,7 @@ export const GameData = [
     },
   },
   {
+    quizScore: {easy: '0', hard: '0'},
     id: 'c7',
     isLocked: true,
     story:
