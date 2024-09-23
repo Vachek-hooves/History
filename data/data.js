@@ -154,7 +154,7 @@ export const GameData = [
   {
     quizScore: {easy: '0', hard: '0'},
     id: 'c2',
-    isLocked: false,
+    isLocked: true,
     story:
       "Greetings! I'm James Bartlett, your guide along the River Avon, Christchurch's true lifeblood. The River Avon, which flows through the center of our city, is of great historical and cultural importance to Christchurch. Its waters not only provide beauty and tranquility, but also play a key role in the development of the city. By following its course, we can feel a connection to the historical past and the cultural changes that have taken place in Christchurch over the centuries. The river was an important resource for early settlers, and today it remains a favorite place for recreation and entertainment. Exploring the Avon River opens up a fascinating journey into the city's past and present. Don't miss the opportunity to learn more about this important part of our city!",
     level: 2,
@@ -323,7 +323,7 @@ export const GameData = [
   {
     quizScore: {easy: '0', hard: '0'},
     id: 'c3',
-    isLocked: false,
+    isLocked: true,
     story:
       "Congratulations! I'm James Bartlett, your guide to the fascinating world of art and literature in Christchurch. Christchurch has a long and varied history in art and literature, stretching from classical times to modern times. Our city has become a center for numerous artists, writers and cultural figures who have invested their creativity in the development of our cultural environment. From early literary works inspired by the beauty of natural landscapes to contemporary artistic movements, Christchurch offers a rich spectrum of cultural influences and achievements. Here you will find numerous galleries, theaters and literary events that demonstrate the evolution of art and literature over the years. Get ready to immerse yourself in the world of creativity that has become an important part of Christchurch life.",
     level: 3,

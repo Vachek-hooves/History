@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '60%', // Reduced map height to accommodate the vertical list
+    height: '50%', // Reduced map height to accommodate the vertical list
     borderRadius: 24,
   },
   buttonContainer: {
