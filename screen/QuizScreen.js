@@ -52,7 +52,7 @@ const CircularProgress = ({progress}) => {
 
 const QuizScreen = ({route, navigation}) => {
   const {levelData, difficulty} = route.params;
-  const {userProgress, saveProgress, unlockNextLevel} = useHistoryContext();
+  const {gameData, saveScore, unlockNextLevel} = useHistoryContext();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -69,27 +69,13 @@ const QuizScreen = ({route, navigation}) => {
   useEffect(() => {
     if (currentQuestionIndex >= questions.length) {
       setShowResult(true);
-      updateProgress();
-      if (score > 8) {
+      saveScore(levelData.id, difficulty, score);
+      if (score >= 8) {
         setShowUnlockButton(true);
         unlockNextLevel(levelData.id);
       }
     }
   }, [currentQuestionIndex]);
-
-  const updateProgress = () => {
-    const newProgress = {
-      ...userProgress,
-      [levelData.id]: {
-        ...userProgress[levelData.id],
-        [difficulty]: Math.max(
-          userProgress[levelData.id]?.[difficulty] || 0,
-          score,
-        ),
-      },
-    };
-    saveProgress(newProgress);
-  };
 
   const handleOptionPress = option => {
     setSelectedOption(option);

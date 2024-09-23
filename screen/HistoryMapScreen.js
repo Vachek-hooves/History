@@ -24,10 +24,11 @@ const initialRegion = {
 
 const HistoryMapScreen = forwardRef((props, ref) => {
   const [region, setRegion] = useState(initialRegion);
-  const {gameData} = useHistoryContext();
+  const {gameData, } = useHistoryContext();
   const navigation = useNavigation();
   const mapRef = useRef(null);
   const [selectedCard, setSelectedCard] = useState(null);
+
 
   const getIconForItem = itemId => {
     const iconData = CITY_ICON.find(icon => icon.id === itemId);
@@ -66,12 +67,13 @@ const HistoryMapScreen = forwardRef((props, ref) => {
       style={[
         styles.card,
         item.isLocked && styles.lockedCard,
-        selectedCard === item.id && styles.selectedCard
+        selectedCard === item.id && styles.selectedCard,
       ]}
       onPress={() => {
         if (!item.isLocked) {
           navigateToLocation(item.coordinates);
           setSelectedCard(item.id);
+          console.log(item.quizScore)
         }
       }}
       disabled={item.isLocked}>
@@ -98,7 +100,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           style={styles.map}
           region={region}
           // language="en"
-        
+
           mapType="standard"
           onRegionChangeComplete={setRegion}>
           {gameData.map(item => {
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.lightGreen + 90,
     // backgroundColor: Color.gold,
-    padding:3
+    padding: 3,
   },
   safeArea: {
     flex: 1,

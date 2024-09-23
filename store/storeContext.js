@@ -45,13 +45,37 @@ export const HistoryProvider = ({children}) => {
     AsyncStorage.setItem('gameData', JSON.stringify(updatedGameData));
   };
 
+  const saveScore = async (levelId, difficulty, score) => {
+    try {
+      const updatedGameData = gameData.map(level => {
+        if (level.id === levelId) {
+          return {
+            ...level,
+            quizScore: {
+              ...level.quizScore,
+              [difficulty]: Math.max(parseInt(level.quizScore[difficulty]), score).toString()
+            }
+          };
+        }
+        return level;
+      });
+      
+      setGameData(updatedGameData);
+      await AsyncStorage.setItem('gameData', JSON.stringify(updatedGameData));
+    } catch (error) {
+      console.error('Error saving score:', error);
+    }
+  };
+
   const value = {
     gameData,
+    setGameData,
     currentLevel,
     setCurrentLevel,
     userProgress,
     saveProgress,
     unlockNextLevel,
+    saveScore,
   };
 
   return (
