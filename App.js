@@ -15,13 +15,15 @@ import {
 import CityHaractersScreen from './screen/CityHaractersScreen';
 import {ArticleIcon, QuizIcon, UserIcon} from './components/ui/tabBtn';
 import {Color} from './colors/color';
-import {AppState, TouchableOpacity, Vibration} from 'react-native';
+import {AppState, TouchableOpacity, Vibration, Dimensions} from 'react-native';
 import {
   setupPlayer,
   resetPlayer,
   playBackgroundMusic,
 } from './components/ui/speaker/setupPlayer';
 import SpeakerControl from './components/ui/speaker/SpeakerControl';
+
+const {height} = Dimensions.get('window');
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,7 +42,7 @@ const TabNavigator = () => {
           elevation: 0,
           borderRadius: 40,
           height: 80,
-          paddingTop: 35,
+          paddingTop: height > 670 ? 35 : 10,
           backgroundColor: Color.deepBlue,
           overflow: 'hidden', // This is important for the BlurView
           borderTopWidth: 0,
@@ -67,13 +69,7 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: () => <SpeakerControl />,
           tabBarButton: props => (
-            <TouchableOpacity
-              {...props}
-              onPress={() => {
-                Vibration.vibrate();
-                props.onPress();
-              }}
-            />
+            <TouchableOpacity {...props} onPress={() => {}} />
           ),
         }}
       />

@@ -5,9 +5,14 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
+  ScrollView,
+  Dimensions,
 } from 'react-native';
 import {Color} from '../colors/color';
 import {GoBack} from '../components/ui/uiIcons';
+
+const {height} = Dimensions.get('window');
+const HEIGHT = height * 0.3;
 
 const QuizDescriptionScreen = ({navigation}) => {
   return (
@@ -15,7 +20,7 @@ const QuizDescriptionScreen = ({navigation}) => {
       source={require('../assets/cardBG/church.jpg')}
       blurRadius={4}
       style={styles.background}>
-      <View style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Text style={styles.header}>Chronicles of Time</Text>
 
         <View style={styles.descriptionContainer}>
@@ -37,7 +42,8 @@ const QuizDescriptionScreen = ({navigation}) => {
             <Text style={styles.buttonText}>Start Quiz</Text>
           </TouchableOpacity>
         </View>
-      </View>
+        <View style={{height: HEIGHT}}></View>
+      </ScrollView>
     </ImageBackground>
   );
 };

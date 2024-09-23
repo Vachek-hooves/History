@@ -8,12 +8,14 @@ import {
   SafeAreaView,
   ScrollView,
   Animated,
+  Dimensions,
 } from 'react-native';
 import {useHistoryContext} from '../store/storeContext';
 import {Color} from '../colors/color';
 import {CorrectIcon, WrongIcon} from '../components/ui/quizIcons';
 import {GoBack} from '../components/ui/uiIcons';
 // import Icon from 'react-native-vector-icons/Ionicons';
+const {height} = Dimensions.get('window');
 
 const CircularProgress = ({progress}) => {
   const angle = progress * 360;
@@ -164,7 +166,7 @@ const QuizScreen = ({route, navigation}) => {
             alignSelf: 'center',
             alignItems: 'center',
             marginVertical: 5,
-            borderRadius:12
+            borderRadius: 12,
           }}>
           <Text style={styles.timerText}>Time Left: {timeLeft}s</Text>
         </View>
@@ -299,8 +301,10 @@ const QuizScreen = ({route, navigation}) => {
       source={require('../assets/cardBG/church.jpg')}
       style={styles.background}
       blurRadius={5}>
-      <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContent}>
+      <SafeAreaView style={[styles.container, {flex: height > 670 ? 1 : 1/1.2}]}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}>
           <Text style={styles.headerText}>{levelData.name}</Text>
           <Text style={styles.difficultyText}>Difficulty: {difficulty}</Text>
           {/* <Text style={styles.timerText}>Time Left: {timeLeft}s</Text> */}
@@ -329,7 +333,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   container: {
-    flex: 1,
+    // flex: 1,
     padding: 20,
   },
   scrollContent: {
