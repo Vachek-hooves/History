@@ -1,11 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {TabLaout} from '../components/layout';
 
-const HistoryGameScreen = () => {
+const HistoryGameScreen = ({navigation}) => {
   return (
-    <View>
-      <Text>HistoryGameScreen</Text>
-    </View>
+    <TabLaout>
+      <TouchableOpacity onPress={() => navigation.navigate('HistoryMapScreen')}>
+        <Text> Game</Text>
+      </TouchableOpacity>
+    </TabLaout>
   );
 };
 

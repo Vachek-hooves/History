@@ -3,21 +3,25 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Color} from '../../../colors/color';
 
-const GoBack = () => {
+const GoBackMap = () => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={() => navigation.goBack()}
-      style={{position: 'absolute', bottom: 50, right: 70}}
-      >
+      style={{
+        marginTop: 30,
+        alignSelf: 'flex-end',
+        marginRight: 70,
+        marginBottom: 20,
+      }}>
       <Image
         source={require('../../../assets/icon/back.png')}
-        style={{width: 50, height: 50, tintColor: Color.white + 90}}
+        style={{width: 50, height: 50, tintColor: Color.white }}
       />
     </TouchableOpacity>
   );
 };
 
-export default GoBack;
+export default GoBackMap;
 
 const styles = StyleSheet.create({});

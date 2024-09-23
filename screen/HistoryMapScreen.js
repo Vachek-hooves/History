@@ -1,4 +1,4 @@
-import React, {useState, forwardRef, useRef} from 'react';
+import React, {useState, forwardRef, useRef, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -14,6 +14,7 @@ import {Color} from '../colors/color';
 import {useHistoryContext} from '../store/storeContext';
 import {useNavigation} from '@react-navigation/native';
 import {CITY_ICON} from '../data/cityIconData';
+import {GoBack, GoBackMap} from '../components/ui/uiIcons';
 
 const initialRegion = {
   latitude: -43.53205162938437,
@@ -24,10 +25,21 @@ const initialRegion = {
 
 const HistoryMapScreen = forwardRef((props, ref) => {
   const [region, setRegion] = useState(initialRegion);
-  const {gameData} = useHistoryContext();
+  const {
+    gameData,
+    calculateTotalScores,
+    canUnlockNextLevelWithHardScore,
+    unlockNextLevelWithHardScore,
+  } = useHistoryContext();
   const navigation = useNavigation();
   const mapRef = useRef(null);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [totalScores, setTotalScores] = useState({easyTotal: 0, hardTotal: 0});
+
+  useEffect(() => {
+    const scores = calculateTotalScores();
+    setTotalScores(scores);
+  }, [gameData]);
 
   const getIconForItem = itemId => {
     const iconData = CITY_ICON.find(icon => icon.id === itemId);
@@ -66,7 +78,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
       style={[
         styles.card,
         item.isLocked && styles.lockedCard,
-        selectedCard === item.id && styles.selectedCard
+        selectedCard === item.id && styles.selectedCard,
       ]}
       onPress={() => {
         if (!item.isLocked) {
@@ -80,12 +92,32 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         Lat: {item.coordinates.latitude.toFixed(4)}, Lon:{' '}
         {item.coordinates.longitude.toFixed(4)}
       </Text>
+      {!item.isLocked && (
+        <View style={styles.scoreContainer}>
+          <Text style={styles.scoreText}>Easy: {item.quizScore.easy}/10</Text>
+          <Text style={styles.scoreText}>Hard: {item.quizScore.hard}/10</Text>
+        </View>
+      )}
       {selectedCard === item.id && !item.isLocked && (
-        <TouchableOpacity
-          style={styles.levelButton}
-          onPress={() => navigation.navigate('LevelScreen', {levelData: item})}>
-          <Text style={styles.levelButtonText}>Start Level</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.levelButton}
+            onPress={() =>
+              navigation.navigate('LevelScreen', {levelData: item})
+            }>
+            <Text style={styles.levelButtonText}>Start Level</Text>
+          </TouchableOpacity>
+          {canUnlockNextLevelWithHardScore(item.id) && (
+            <TouchableOpacity
+              style={[styles.levelButton, styles.unlockButton]}
+              onPress={() => {
+                unlockNextLevelWithHardScore(item.id);
+                setSelectedCard(null);
+              }}>
+              <Text style={styles.levelButtonText}>Unlock Next (16 Hard)</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       )}
     </TouchableOpacity>
   );
@@ -93,12 +125,20 @@ const HistoryMapScreen = forwardRef((props, ref) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
+        <View style={styles.totalScoreContainer}>
+          <Text style={styles.totalScoreText}>
+            Total Easy Score: {totalScores.easyTotal}
+          </Text>
+          <Text style={styles.totalScoreText}>
+            Total Hard Score: {totalScores.hardTotal}
+          </Text>
+        </View>
         <MapView
           ref={mapRef}
           style={styles.map}
           region={region}
           // language="en"
-        
+
           mapType="standard"
           onRegionChangeComplete={setRegion}>
           {gameData.map(item => {
@@ -122,12 +162,12 @@ const HistoryMapScreen = forwardRef((props, ref) => {
             );
           })}
         </MapView>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={zoomIn}>
-            <Text style={styles.buttonText}>+</Text>
+        <View style={styles.buttonContainerMap}>
+          <TouchableOpacity style={styles.buttonMap} onPress={zoomIn}>
+            <Text style={styles.buttonTextMap}>+</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={zoomOut}>
-            <Text style={styles.buttonText}>-</Text>
+          <TouchableOpacity style={styles.buttonMap} onPress={zoomOut}>
+            <Text style={styles.buttonTextMap}>-</Text>
           </TouchableOpacity>
         </View>
         <FlatList
@@ -137,6 +177,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           style={styles.cardList}
           showsVerticalScrollIndicator={false}
         />
+        <GoBackMap />
       </SafeAreaView>
     </View>
   );
@@ -149,23 +190,41 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.lightGreen + 90,
     // backgroundColor: Color.gold,
-    padding:3
+    padding: 3,
   },
   safeArea: {
     flex: 1,
   },
   map: {
     width: '100%',
-    height: '60%', // Reduced map height to accommodate the vertical list
+    height: '40%', // Reduced map height to accommodate the vertical list
     borderRadius: 24,
   },
   buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: 10,
+  },
+  buttonContainerMap: {
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // width: '80%',
+    // marginTop: 10,
     position: 'absolute',
-    // top: 100,
-    right: 10,
-    flexDirection: 'column',
-    gap: 10,
-    bottom: '50%',
+    top: '45%',
+    gap: 20,
+    right: 20,
+  },
+  buttonTextMap: {
+    fontSize: 20,
+    color: 'white',
+  },
+  buttonMap: {
+    backgroundColor: Color.lightBlue,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
   },
   button: {
     backgroundColor: Color.lightBlue,
@@ -195,22 +254,39 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     marginBottom: 5,
+    textAlign: 'center',
   },
   coordsText: {
     color: 'white',
     fontSize: 12,
     marginBottom: 10,
   },
+  scoreContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 10,
+  },
+  scoreText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
   levelButton: {
     backgroundColor: Color.deepBlue,
     padding: 8,
     borderRadius: 5,
-    marginTop: 5,
+    flex: 1,
+    marginHorizontal: 5,
   },
   levelButtonText: {
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  unlockButton: {
+    backgroundColor: Color.gold,
   },
   markerIcon: {
     width: 60,
@@ -226,5 +302,18 @@ const styles = StyleSheet.create({
   selectedCard: {
     borderColor: Color.deepBlue,
     borderWidth: 3,
+  },
+  totalScoreContainer: {
+    backgroundColor: Color.deepBlue,
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  totalScoreText: {
+    color: 'white',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });

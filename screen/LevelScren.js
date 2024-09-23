@@ -62,7 +62,7 @@ const LevelScreen = ({route, navigation}) => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    resizeMode: 'cover',
+    // resizeMode: 'cover',
   },
   container: {
     flex: 0.8,
