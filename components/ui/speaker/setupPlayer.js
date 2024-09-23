@@ -30,16 +30,16 @@ export const setupPlayer = async () => {
   }
 };
 
-export const resetPlayer = async () => {
-  try {
-    await TrackPlayer.stop();
-    await TrackPlayer.reset();
-    isSetup = false;
-    console.log('Track player reset successfully');
-  } catch (error) {
-    console.error('Error resetting player:', error);
-  }
-};
+// export const resetPlayer = async () => {
+//   try {
+//     await TrackPlayer.stop();
+//     await TrackPlayer.reset();
+//     isSetup = false;
+//     console.log('Track player reset successfully');
+//   } catch (error) {
+//     console.error('Error resetting player:', error);
+//   }
+// };
 
 export const toggleBackgroundMusic = async () => {
   const state = await TrackPlayer.getState();
