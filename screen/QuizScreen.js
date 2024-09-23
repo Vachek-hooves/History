@@ -63,6 +63,7 @@ const QuizScreen = ({route, navigation}) => {
     'rgba(255,255,255,0.4)',
   );
   const [showUnlockButton, setShowUnlockButton] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(60);
 
   const questions = difficulty === 'easy' ? levelData.easy : levelData.hard;
 
@@ -76,6 +77,19 @@ const QuizScreen = ({route, navigation}) => {
       }
     }
   }, [currentQuestionIndex]);
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      navigation.goBack();
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft(prevTime => prevTime - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
   const handleOptionPress = option => {
     setSelectedOption(option);
@@ -142,6 +156,18 @@ const QuizScreen = ({route, navigation}) => {
     return (
       <View
         style={[styles.questionContainer, {backgroundColor: questionBgColor}]}>
+        <View
+          style={{
+            backgroundColor: Color.deepBlue,
+            justifyContent: 'center',
+            width: '40%',
+            alignSelf: 'center',
+            alignItems: 'center',
+            marginVertical: 5,
+            borderRadius:12
+          }}>
+          <Text style={styles.timerText}>Time Left: {timeLeft}s</Text>
+        </View>
         <CircularProgress
           progress={(currentQuestionIndex + 1) / questions.length}
         />
@@ -277,6 +303,7 @@ const QuizScreen = ({route, navigation}) => {
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <Text style={styles.headerText}>{levelData.name}</Text>
           <Text style={styles.difficultyText}>Difficulty: {difficulty}</Text>
+          {/* <Text style={styles.timerText}>Time Left: {timeLeft}s</Text> */}
           {!showResult ? (
             <>
               {/* <Text style={styles.progressText}>
@@ -322,6 +349,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
+  timerText: {
+    fontSize: 18,
+    color: Color.deepRed,
+    textAlign: 'center',
+    // marginBottom: 20,
+    padding: 10,
+  },
   progressText: {
     fontSize: 16,
     color: Color.deepBlue,
@@ -330,7 +364,7 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     borderRadius: 10,
-    padding: 20,
+    padding: 10,
     marginBottom: 20,
   },
   questionTextContainer: {
