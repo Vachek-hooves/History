@@ -73,6 +73,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         if (!item.isLocked) {
           navigateToLocation(item.coordinates);
           setSelectedCard(item.id);
+          console.log(item.quizScore)
         }
       }}
       disabled={item.isLocked}>
