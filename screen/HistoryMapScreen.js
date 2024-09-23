@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   FlatList,
   Image,
+  Vibration,
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {Color} from '../colors/color';
@@ -88,10 +89,10 @@ const HistoryMapScreen = forwardRef((props, ref) => {
       }}
       disabled={item.isLocked}>
       <Text style={styles.cardText}>{item.name}</Text>
-      <Text style={styles.coordsText}>
+      {/* <Text style={styles.coordsText}>
         Lat: {item.coordinates.latitude.toFixed(4)}, Lon:{' '}
         {item.coordinates.longitude.toFixed(4)}
-      </Text>
+      </Text> */}
       {!item.isLocked && (
         <View style={styles.scoreContainer}>
           <Text style={styles.scoreText}>Easy: {item.quizScore.easy}/10</Text>
@@ -102,9 +103,10 @@ const HistoryMapScreen = forwardRef((props, ref) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.levelButton}
-            onPress={() =>
-              navigation.navigate('LevelScreen', {levelData: item})
-            }>
+            onPress={() => {
+              navigation.navigate('LevelScreen', {levelData: item});
+              Vibration.vibrate();
+            }}>
             <Text style={styles.levelButtonText}>Start Level</Text>
           </TouchableOpacity>
           {canUnlockNextLevelWithHardScore(item.id) && (
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
     // width: '80%',
     // marginTop: 10,
     position: 'absolute',
-    top: '45%',
+    top: '35%',
     gap: 20,
     right: 20,
   },

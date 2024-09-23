@@ -11,9 +11,9 @@ const TabLaout = ({children}) => {
   return (
     <ImageBackground
       source={require('../../assets/cardBG/church.jpg')}
-      blurRadius={6}
+      blurRadius={4}
       style={styles.mainImage}>
-      <SafeAreaView></SafeAreaView>
+      {/* <SafeAreaView></SafeAreaView> */}
       {children}
     </ImageBackground>
   );
@@ -22,5 +22,6 @@ const TabLaout = ({children}) => {
 export default TabLaout;
 
 const styles = StyleSheet.create({
-  mainImage: {flex: 1, resizeMode: 'cover'},
+  mainImage: {flex: 1,
+    resizeMode: 'cover',},
 });

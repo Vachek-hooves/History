@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -14,6 +15,13 @@ import {
 import CityHaractersScreen from './screen/CityHaractersScreen';
 import {ArticleIcon, QuizIcon, UserIcon} from './components/ui/tabBtn';
 import {Color} from './colors/color';
+import {AppState, TouchableOpacity, Vibration} from 'react-native';
+import {
+  setupPlayer,
+  resetPlayer,
+  playBackgroundMusic,
+} from './components/ui/speaker/setupPlayer';
+import SpeakerControl from './components/ui/speaker/SpeakerControl';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -39,6 +47,11 @@ const TabNavigator = () => {
         },
       }}>
       <Tab.Screen
+        name="HistoryGameScreen"
+        component={HistoryGameScreen}
+        options={{tabBarIcon: ({focused}) => <QuizIcon focused={focused} />}}
+      />
+      <Tab.Screen
         name="userScreen"
         component={CityHaractersScreen}
         options={{tabBarIcon: ({focused}) => <UserIcon focused={focused} />}}
@@ -49,15 +62,65 @@ const TabNavigator = () => {
         options={{tabBarIcon: ({focused}) => <ArticleIcon focused={focused} />}}
       />
       <Tab.Screen
-        name="HistoryGameScreen"
-        component={HistoryGameScreen}
-        options={{tabBarIcon: ({focused}) => <QuizIcon focused={focused} />}}
+        name="Speaker"
+        component={SpeakerControl}
+        options={{
+          tabBarIcon: () => <SpeakerControl />,
+          tabBarButton: props => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => {
+                Vibration.vibrate();
+                props.onPress();
+              }}
+            />
+          ),
+        }}
       />
     </Tab.Navigator>
   );
 };
 
 function App() {
+  const [isPlayerReady, setIsPlayerReady] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const initializePlayer = async () => {
+      try {
+        await setupPlayer();
+        if (isMounted) {
+          setIsPlayerReady(true);
+          playBackgroundMusic();
+        }
+      } catch (error) {
+        console.error('Error initializing player:', error);
+      }
+    };
+
+    initializePlayer();
+
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (nextAppState === 'background' || nextAppState === 'inactive') {
+        resetPlayer();
+      } else if (nextAppState === 'active') {
+        initializePlayer();
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.remove();
+      resetPlayer();
+    };
+  }, []);
+
+  if (!isPlayerReady) {
+    // You might want to show a loading screen here
+    return null;
+  }
+
   return (
     <HistoryProvider>
       <NavigationContainer>
