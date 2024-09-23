@@ -52,7 +52,7 @@ const CircularProgress = ({progress}) => {
 
 const QuizScreen = ({route, navigation}) => {
   const {levelData, difficulty} = route.params;
-  const {userProgress, saveProgress} = useHistoryContext();
+  const {userProgress, saveProgress, unlockNextLevel} = useHistoryContext();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -62,6 +62,7 @@ const QuizScreen = ({route, navigation}) => {
   const [questionBgColor, setQuestionBgColor] = useState(
     'rgba(255,255,255,0.4)',
   );
+  const [showUnlockButton, setShowUnlockButton] = useState(false);
 
   const questions = difficulty === 'easy' ? levelData.easy : levelData.hard;
 
@@ -69,6 +70,10 @@ const QuizScreen = ({route, navigation}) => {
     if (currentQuestionIndex >= questions.length) {
       setShowResult(true);
       updateProgress();
+      if (score > 8) {
+        setShowUnlockButton(true);
+        unlockNextLevel(levelData.id);
+      }
     }
   }, [currentQuestionIndex]);
 
@@ -252,6 +257,10 @@ const QuizScreen = ({route, navigation}) => {
     });
   };
 
+  const handleUnlockNextLevel = () => {
+    navigation.navigate('HistoryMapScreen');
+  };
+
   const renderResult = () => (
     <View style={styles.resultContainer}>
       <Text style={styles.resultText}>Quiz Completed!</Text>
@@ -263,6 +272,13 @@ const QuizScreen = ({route, navigation}) => {
         onPress={() => navigation.goBack()}>
         <Text style={styles.backButtonText}>Back to Level</Text>
       </TouchableOpacity>
+      {showUnlockButton && (
+        <TouchableOpacity
+          style={[styles.backButton, styles.unlockButton]}
+          onPress={handleUnlockNextLevel}>
+          <Text style={styles.backButtonText}>Unlock Next Level</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 
@@ -447,6 +463,10 @@ const styles = StyleSheet.create({
     color: Color.deepBlue,
     top: 38,
     left: 30,
+  },
+  unlockButton: {
+    backgroundColor: Color.gold,
+    marginTop: 10,
   },
 });
 

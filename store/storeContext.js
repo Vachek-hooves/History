@@ -34,12 +34,24 @@ export const HistoryProvider = ({children}) => {
     }
   };
 
+  const unlockNextLevel = (currentLevelId) => {
+    const updatedGameData = gameData.map(level => {
+      if (level.id === `c${parseInt(currentLevelId.slice(1)) + 1}`) {
+        return { ...level, isLocked: false };
+      }
+      return level;
+    });
+    setGameData(updatedGameData);
+    AsyncStorage.setItem('gameData', JSON.stringify(updatedGameData));
+  };
+
   const value = {
     gameData,
     currentLevel,
     setCurrentLevel,
     userProgress,
     saveProgress,
+    unlockNextLevel,
   };
 
   return (
