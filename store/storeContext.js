@@ -159,6 +159,16 @@ export const HistoryProvider = ({children}) => {
     await saveNewArticles(updatedArticles);
   };
 
+  const resetGameData = async () => {
+    try {
+      await AsyncStorage.removeItem('gameData');
+      setGameData(GameData);
+      await AsyncStorage.setItem('gameData', JSON.stringify(GameData));
+    } catch (error) {
+      console.error('Error resetting game data:', error);
+    }
+  };
+
   const value = {
     gameData,
     setGameData: saveGameData,
@@ -173,6 +183,7 @@ export const HistoryProvider = ({children}) => {
     newArticles, // Add this line
     createNewArticle, // Add this line
     deleteArticle, // Add this line
+    resetGameData, // Add this line
   };
 
   if (isLoading) {

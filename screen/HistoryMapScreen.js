@@ -15,7 +15,7 @@ import {Color} from '../colors/color';
 import {useHistoryContext} from '../store/storeContext';
 import {useNavigation} from '@react-navigation/native';
 import {CITY_ICON} from '../data/cityIconData';
-import {GoBack, GoBackMap} from '../components/ui/uiIcons';
+import {GoBack, GoBackMap, ResetGame} from '../components/ui/uiIcons';
 
 const initialRegion = {
   latitude: -43.53205162938437,
@@ -179,7 +179,16 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           style={styles.cardList}
           showsVerticalScrollIndicator={false}
         />
-        <GoBackMap />
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: 30,
+            marginBottom: 20,
+            justifyContent: 'space-around',
+          }}>
+          <ResetGame />
+          <GoBackMap />
+        </View>
       </SafeAreaView>
     </View>
   );
