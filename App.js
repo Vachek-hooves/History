@@ -17,9 +17,8 @@ import {ArticleIcon, QuizIcon, UserIcon} from './components/ui/tabBtn';
 import {Color} from './colors/color';
 import {AppState, TouchableOpacity, Vibration, Dimensions} from 'react-native';
 import {
-  setupPlayer,
-  resetPlayer,
   playBackgroundMusic,
+  resetPlayer,
 } from './components/ui/speaker/setupPlayer';
 import SpeakerControl from './components/ui/speaker/SpeakerControl';
 
@@ -81,17 +80,13 @@ function App() {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
 
   useEffect(() => {
-    let isMounted = true;
-
     const initializePlayer = async () => {
       try {
-        await setupPlayer();
-        if (isMounted) {
-          setIsPlayerReady(true);
-          playBackgroundMusic();
-        }
+        await playBackgroundMusic();
+        setIsPlayerReady(true);
       } catch (error) {
         console.error('Error initializing player:', error);
+        setIsPlayerReady(true); // Set to true even if there's an error, so the app can render
       }
     };
 
@@ -101,12 +96,11 @@ function App() {
       if (nextAppState === 'background' || nextAppState === 'inactive') {
         resetPlayer();
       } else if (nextAppState === 'active') {
-        initializePlayer();
+        playBackgroundMusic();
       }
     });
 
     return () => {
-      isMounted = false;
       subscription.remove();
       resetPlayer();
     };
