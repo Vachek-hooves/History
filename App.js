@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -15,7 +15,14 @@ import {
 import CityHaractersScreen from './screen/CityHaractersScreen';
 import {ArticleIcon, QuizIcon, UserIcon} from './components/ui/tabBtn';
 import {Color} from './colors/color';
-import {AppState, TouchableOpacity, Vibration, Dimensions} from 'react-native';
+import {
+  AppState,
+  TouchableOpacity,
+  Vibration,
+  Dimensions,
+  Animated,
+  View,
+} from 'react-native';
 import {
   playBackgroundMusic,
   resetPlayer,
@@ -26,6 +33,11 @@ const {height} = Dimensions.get('window');
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const images = [
+  require('./assets/newLoaders/Loader1.png'),
+  require('./assets/newLoaders/Loader2.png'),
+];
 
 const TabNavigator = () => {
   return (
@@ -78,6 +90,8 @@ const TabNavigator = () => {
 
 function App() {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
+  const [id, setItem] = useState(0);
+  const animation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const initializePlayer = async () => {
@@ -106,6 +120,35 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    fadeStart();
+    const timeOut = setTimeout(() => {
+      navigateToMenu();
+    }, 6000);
+    return () => clearTimeout(timeOut);
+  }, []);
+
+  const fadeStart = () => {
+    Animated.timing(animation, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start(() => fadeFinish());
+  };
+
+  const fadeFinish = () => {
+    Animated.timing(animation, {
+      toValue: 0,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start(() => {
+      setItem(prevState => prevState + 1);
+      fadeStart();
+    });
+  };
+  const navigateToMenu = () => {
+    setItem(2);
+  };
   if (!isPlayerReady) {
     // You might want to show a loading screen here
     return null;
@@ -120,10 +163,29 @@ function App() {
             animation: 'simple_push',
             animationDuration: 1000,
           }}>
-          <Stack.Screen
+          {id < 2 ? (
+            <Stack.Screen name="Welcome" options={{headerShown: false}}>
+              {() => (
+                <View style={{flex: 1}}>
+                  <Animated.Image
+                    source={images[id]}
+                    style={[
+                      {width: '100%', flex: 1},
+                      {opacity: animation},
+                    ]}></Animated.Image>
+                </View>
+              )}
+            </Stack.Screen>
+          ) : (
+            <Stack.Screen
+              name="HistoryIntroductionScreen"
+              component={HistoryIntroductionScreen}
+            />
+          )}
+          {/* <Stack.Screen
             name="HistoryIntroductionScreen"
             component={HistoryIntroductionScreen}
-          />
+          /> */}
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="HistoryMapScreen" component={HistoryMapScreen} />
           <Stack.Screen name="LevelScreen" component={LevelScren} />

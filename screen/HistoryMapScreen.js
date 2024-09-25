@@ -9,6 +9,7 @@ import {
   FlatList,
   Image,
   Vibration,
+  ImageBackground,
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {Color} from '../colors/color';
@@ -125,7 +126,9 @@ const HistoryMapScreen = forwardRef((props, ref) => {
   );
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      style={styles.container}
+      source={require('../assets/newbg/bg.png')}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.totalScoreContainer}>
           <Text style={styles.totalScoreText}>
@@ -190,7 +193,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           <GoBackMap />
         </View>
       </SafeAreaView>
-    </View>
+    </ImageBackground>
   );
 });
 

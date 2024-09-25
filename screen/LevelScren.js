@@ -21,7 +21,8 @@ const LevelScreen = ({route, navigation}) => {
 
   return (
     <ImageBackground
-      source={require('../assets/cardBG/church.jpg')}
+      // source={require('../assets/cardBG/church.jpg')}
+      source={require('../assets/newbg/bg.png')}
       blurRadius={4}
       style={styles.background}>
       <View style={styles.container}>

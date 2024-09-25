@@ -17,7 +17,8 @@ const HEIGHT = height * 0.3;
 const QuizDescriptionScreen = ({navigation}) => {
   return (
     <ImageBackground
-      source={require('../assets/cardBG/church.jpg')}
+      // source={require('../assets/cardBG/church.jpg')}
+      source={require('../assets/newbg/bg.png')}
       blurRadius={4}
       style={styles.background}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
