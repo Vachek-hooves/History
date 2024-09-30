@@ -99,7 +99,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginVertical: 10,
     // color: '#4A90E2',
-    color: Color.deepBlue,
+    // color: Color.deepBlue,
+    color: Color.white,
   },
   subText: {
     fontSize: 18,

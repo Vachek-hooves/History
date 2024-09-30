@@ -298,10 +298,12 @@ const QuizScreen = ({route, navigation}) => {
 
   return (
     <ImageBackground
-      source={require('../assets/cardBG/church.jpg')}
+      // source={require('../assets/cardBG/church.jpg')}
+      source={require('../assets/newbg/bg.png')}
       style={styles.background}
       blurRadius={5}>
-      <SafeAreaView style={[styles.container, {flex: height > 670 ? 1 : 1/1.2}]}>
+      <SafeAreaView
+        style={[styles.container, {flex: height > 670 ? 1 : 1 / 1.2}]}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}>
@@ -343,15 +345,17 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: Color.deepBlue,
+    // color: Color.deepBlue,
     textAlign: 'center',
     marginBottom: 10,
+    color: Color.white,
   },
   difficultyText: {
     fontSize: 18,
-    color: Color.deepBlue,
+    // color: Color.deepBlue,
     textAlign: 'center',
     marginBottom: 20,
+    color: Color.white,
   },
   timerText: {
     fontSize: 18,

@@ -476,11 +476,12 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = History/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "History Quest Christchurch";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -504,11 +505,12 @@
 				DEVELOPMENT_TEAM = 2457RR7746;
 				INFOPLIST_FILE = History/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "History Quest Christchurch";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
