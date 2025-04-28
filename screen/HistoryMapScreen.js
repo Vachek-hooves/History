@@ -11,7 +11,7 @@ import {
   Vibration,
   ImageBackground,
 } from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {Color} from '../colors/color';
 import {useHistoryContext} from '../store/storeContext';
 import {useNavigation} from '@react-navigation/native';
@@ -106,7 +106,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
             style={styles.levelButton}
             onPress={() => {
               navigation.navigate('LevelScreen', {levelData: item});
-              Vibration.vibrate();
+              // Vibration.vibrate();
             }}>
             <Text style={styles.levelButtonText}>Start Level</Text>
           </TouchableOpacity>
@@ -128,7 +128,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
   return (
     <ImageBackground
       style={styles.container}
-      source={require('../assets/newbg/bg.png')}>
+      source={require('../assets/cardBG/intro.jpg')}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.totalScoreContainer}>
           <Text style={styles.totalScoreText}>
@@ -139,11 +139,16 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           </Text>
         </View>
         <MapView
+          provider={PROVIDER_GOOGLE}
           ref={mapRef}
           style={styles.map}
           region={region}
           // language="en"
-
+          loadingEnabled={true}
+          scrollEnabled={true}
+          zoomEnabled={true}
+          loadingIndicatorColor="#00AAB8"
+          loadingBackgroundColor="#001F1F"
           mapType="standard"
           onRegionChangeComplete={setRegion}>
           {gameData.map(item => {

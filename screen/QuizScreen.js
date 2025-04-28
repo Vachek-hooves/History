@@ -298,8 +298,8 @@ const QuizScreen = ({route, navigation}) => {
 
   return (
     <ImageBackground
-      // source={require('../assets/cardBG/church.jpg')}
-      source={require('../assets/newbg/bg.png')}
+      source={require('../assets/cardBG/church.jpg')}
+      // source={require('../assets/newbg/bg.png')}
       style={styles.background}
       blurRadius={5}>
       <SafeAreaView
@@ -323,7 +323,7 @@ const QuizScreen = ({route, navigation}) => {
           )}
         </ScrollView>
       </SafeAreaView>
-      <GoBack />
+      {/* <GoBack /> */}
     </ImageBackground>
   );
 };

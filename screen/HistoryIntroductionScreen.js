@@ -81,7 +81,7 @@ const HistoryIntroductionScreen = ({navigation}) => {
             transform: [{scale: scaleAnimMain}, {translateY: slideAnimMain}],
           },
         ]}>
-        History Quest Christchurch
+       Crown History Quest
       </Animated.Text>
       <Animated.Text style={[styles.subText, {opacity: fadeAnimMain}]}>
         Your adventure through time starts here!

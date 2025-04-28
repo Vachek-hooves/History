@@ -53,7 +53,7 @@ const TabNavigator = () => {
           elevation: 0,
           borderRadius: 40,
           height: 80,
-          paddingTop: height > 670 ? 35 : 10,
+          paddingTop: height > 670 ? 15 : 10,
           backgroundColor: Color.deepBlue,
           overflow: 'hidden', // This is important for the BlurView
           borderTopWidth: 0,
@@ -74,7 +74,7 @@ const TabNavigator = () => {
         component={LibraryArticles}
         options={{tabBarIcon: ({focused}) => <ArticleIcon focused={focused} />}}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Speaker"
         component={SpeakerControl}
         options={{
@@ -83,7 +83,7 @@ const TabNavigator = () => {
             <TouchableOpacity {...props} onPress={() => {}} />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
@@ -146,6 +146,7 @@ function App() {
       fadeStart();
     });
   };
+  
   const navigateToMenu = () => {
     setItem(2);
   };

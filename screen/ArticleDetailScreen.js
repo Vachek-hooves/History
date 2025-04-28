@@ -16,7 +16,7 @@ const ArticleDetailScreen = ({route}) => {
     <View style={styles.screen}>
       <View style={styles.imageContainer}>
         <Image source={article.image} style={styles.image} />
-        <GoBack />
+        {/* <GoBack /> */}
       </View>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>{article.title}</Text>

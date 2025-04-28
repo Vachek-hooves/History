@@ -21,8 +21,8 @@ const LevelScreen = ({route, navigation}) => {
 
   return (
     <ImageBackground
-      // source={require('../assets/cardBG/church.jpg')}
-      source={require('../assets/newbg/bg.png')}
+      source={require('../assets/cardBG/church.jpg')}
+      // source={require('../assets/newbg/bg.png')}
       blurRadius={4}
       style={styles.background}>
       <View style={styles.container}>
@@ -55,7 +55,7 @@ const LevelScreen = ({route, navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
-      <GoBack />
+      {/* <GoBack /> */}
     </ImageBackground>
   );
 };
