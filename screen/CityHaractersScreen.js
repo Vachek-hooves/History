@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -90,7 +91,13 @@ const CityHaractersScreen = () => {
   return (
     <TabLaout>
       <SafeAreaView style={styles.container}>
-        {isEditing || !userName ? renderForm() : renderUserData()}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{flexGrow: 1, padding: 20, paddingTop: 10}}>
+          {isEditing || !userName ? renderForm() : renderUserData()}
+          <View style={{height: 110}} />
+        </ScrollView>
+        {/* <View style={{height: 100}} /> */}
       </SafeAreaView>
     </TabLaout>
   );

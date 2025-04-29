@@ -17,6 +17,7 @@ import {useHistoryContext} from '../store/storeContext';
 import {useNavigation} from '@react-navigation/native';
 import {CITY_ICON} from '../data/cityIconData';
 import {GoBack, GoBackMap, ResetGame} from '../components/ui/uiIcons';
+import Orientation from 'react-native-orientation-locker';
 
 const initialRegion = {
   latitude: -43.53205162938437,
@@ -37,6 +38,13 @@ const HistoryMapScreen = forwardRef((props, ref) => {
   const mapRef = useRef(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [totalScores, setTotalScores] = useState({easyTotal: 0, hardTotal: 0});
+
+  useEffect(() => {
+    Orientation.lockToPortrait();
+    return () => {
+      Orientation.unlockAllOrientations();
+    };
+  }, []);
 
   useEffect(() => {
     const scores = calculateTotalScores();

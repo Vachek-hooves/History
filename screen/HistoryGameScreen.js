@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.8,
     padding: 20,
-    paddingTop: 60,
+    paddingTop: 10,
   },
   header: {
     fontSize: 28,
