@@ -26,10 +26,10 @@ const QuizDescriptionScreen = ({navigation}) => {
 
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionText}>
-            Step into Christchurch Through Time, an immersive journey where
+            Step into Crown History Travel Quiz, an immersive journey where
             history, culture, and modern life blend together. Explore the city's
             evolution through interactive zones, each representing a unique
-            chapter in Christchurch’s story.
+            chapter in story.
           </Text>
           <Text style={styles.descriptionText}>
             Your exploration begins now!

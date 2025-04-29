@@ -22,8 +22,8 @@ import Orientation from 'react-native-orientation-locker';
 const initialRegion = {
   latitude: -43.53205162938437,
   longitude: 172.6360443730743,
-  latitudeDelta: 0.0362,
-  longitudeDelta: 0.0361,
+  latitudeDelta: 0.03,
+  longitudeDelta: 0.03,
 };
 
 const HistoryMapScreen = forwardRef((props, ref) => {
@@ -151,7 +151,11 @@ const HistoryMapScreen = forwardRef((props, ref) => {
           ref={mapRef}
           style={styles.map}
           region={region}
-          // language="en"
+          showsNames={false}
+          showsBuildings={false}
+          showsPointsOfInterest={false}
+          showsTraffic={false}
+          showsIndoors={false}
           loadingEnabled={true}
           scrollEnabled={true}
           zoomEnabled={true}
@@ -180,14 +184,14 @@ const HistoryMapScreen = forwardRef((props, ref) => {
             );
           })}
         </MapView>
-        <View style={styles.buttonContainerMap}>
+        {/* <View style={styles.buttonContainerMap}>
           <TouchableOpacity style={styles.buttonMap} onPress={zoomIn}>
             <Text style={styles.buttonTextMap}>+</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonMap} onPress={zoomOut}>
             <Text style={styles.buttonTextMap}>-</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
         <FlatList
           data={gameData}
           renderItem={renderCard}
@@ -203,7 +207,7 @@ const HistoryMapScreen = forwardRef((props, ref) => {
             justifyContent: 'space-around',
           }}>
           <ResetGame />
-          <GoBackMap />
+          {/* <GoBackMap /> */}
         </View>
       </SafeAreaView>
     </ImageBackground>

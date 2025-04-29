@@ -66,10 +66,10 @@ const styles = StyleSheet.create({
     // resizeMode: 'cover',
   },
   container: {
-    flex: 0.8,
+    flex: 0.85,
     padding: 20,
     // backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingTop: 60,
+    paddingTop: 10,
   },
   header: {
     fontSize: 28,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.8)',
     borderRadius: 10,
     padding: 15,
-    marginBottom: 20,
+    marginBottom: 15,
   },
   storyText: {
     fontSize: 16,

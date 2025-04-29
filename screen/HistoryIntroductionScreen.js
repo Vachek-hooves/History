@@ -48,7 +48,7 @@ const HistoryIntroductionScreen = ({navigation}) => {
           useNativeDriver: true,
         }),
       ]),
-    ]).start(() => navigation.navigate('TabNavigator'));
+    ]).start(() => navigation.replace('TabNavigator'));
   }, [
     fadeAnimWelcome,
     scaleAnimWelcome,
@@ -81,7 +81,7 @@ const HistoryIntroductionScreen = ({navigation}) => {
             transform: [{scale: scaleAnimMain}, {translateY: slideAnimMain}],
           },
         ]}>
-       Crown History Quest
+        Crown History Travel Quiz
       </Animated.Text>
       <Animated.Text style={[styles.subText, {opacity: fadeAnimMain}]}>
         Your adventure through time starts here!
