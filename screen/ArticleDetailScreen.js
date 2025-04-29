@@ -15,7 +15,18 @@ const ArticleDetailScreen = ({route}) => {
   return (
     <View style={styles.screen}>
       <View style={styles.imageContainer}>
-        <Image source={article.image} style={styles.image} />
+        {/* <Image source={article.image} style={styles.image} />
+         */}
+        <Image
+          source={
+            article.image
+              ? typeof article.image === 'object' && article.image.uri
+                ? {uri: article.image.uri}
+                : article.image
+              : require('../assets/cardBG/default.png')
+          }
+          style={styles.image}
+        />
         {/* <GoBack /> */}
       </View>
       <ScrollView contentContainerStyle={styles.container}>

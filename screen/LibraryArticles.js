@@ -24,13 +24,16 @@ const LibraryArticles = ({navigation}) => {
     title: '',
     content: '',
   });
+  // console.log(newArticle);
   const [modalVisible, setModalVisible] = useState(false);
+  // console.log(newArticle);
 
   const handlePress = article => {
     navigation.navigate('ArticleDetail', {article});
   };
 
   const handleCreateArticle = () => {
+   
     createNewArticle(newArticle);
     setNewArticle({image: null, title: '', content: ''});
     setModalVisible(false);
@@ -43,7 +46,12 @@ const LibraryArticles = ({navigation}) => {
   const handleImagePicker = () => {
     launchImageLibrary({}, response => {
       if (response.assets && response.assets.length > 0) {
-        setNewArticle({...newArticle, image: {uri: response.assets[0].uri}});
+        setNewArticle({
+          ...newArticle,
+          image: {
+            uri: response.assets[0].uri,
+          },
+        });
       }
     });
   };
@@ -139,7 +147,15 @@ const LibraryCard = ({article, onPress, onDelete, isDeletable}) => {
   return (
     <View style={styles.card}>
       <TouchableOpacity onPress={onPress}>
-        <Image source={article.image} style={styles.image} />
+        <Image 
+          source={article.image 
+            ? (typeof article.image === 'object' && article.image.uri 
+              ? {uri: article.image.uri} 
+              : article.image)
+            : require('../assets/cardBG/default.png')
+          } 
+          style={styles.image} 
+        />
         <View style={styles.textContainer}>
           <Text style={styles.title}>{article.title}</Text>
           {/* <Text style={styles.level}>Level: {article.level}</Text> */}
@@ -232,7 +248,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 12,
     borderColor: Color.deepBlue,
-    maxHeight:85
+    maxHeight: 85,
   },
   previewImage: {
     // width: 100,

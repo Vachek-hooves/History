@@ -15,7 +15,7 @@ const SpeakerControl = () => {
   const playbackState = usePlaybackState();
   const isPlaying = playbackState === State.Playing;
 
-  console.log(offState);
+  // console.log(offState);
 
   const handleToggleSound = async () => {
     await toggleBackgroundMusic();

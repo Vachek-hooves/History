@@ -15,19 +15,7 @@ import {
 import CityHaractersScreen from './screen/CityHaractersScreen';
 import {ArticleIcon, QuizIcon, UserIcon} from './components/ui/tabBtn';
 import {Color} from './colors/color';
-import {
-  AppState,
-  TouchableOpacity,
-  Vibration,
-  Dimensions,
-  Animated,
-  View,
-} from 'react-native';
-import {
-  playBackgroundMusic,
-  resetPlayer,
-} from './components/ui/speaker/setupPlayer';
-import SpeakerControl from './components/ui/speaker/SpeakerControl';
+import {Dimensions} from 'react-native';
 
 const {height} = Dimensions.get('window');
 
