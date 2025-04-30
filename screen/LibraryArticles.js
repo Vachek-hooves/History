@@ -110,6 +110,7 @@ const LibraryArticles = ({navigation}) => {
               placeholder="Title"
               value={newArticle.title}
               onChangeText={text => setNewArticle({...newArticle, title: text})}
+              placeholderTextColor={Color.deepBlue}
             />
             {/* <TextInput
               style={styles.input}
@@ -125,6 +126,7 @@ const LibraryArticles = ({navigation}) => {
                 setNewArticle({...newArticle, content: text})
               }
               multiline
+              placeholderTextColor={Color.deepBlue}
             />
             <TouchableOpacity
               style={styles.modalButton}
@@ -238,6 +240,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
+    color:Color.deepBlue
   },
   input: {
     height: 40,
