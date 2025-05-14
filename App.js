@@ -43,7 +43,7 @@ const generateTimestampUserId = () => {
     1000000 + Math.random() * 9000000,
   )}`;
 };
-const targetData = new Date('2025-04-13T22:00:00Z');
+const targetData = new Date('2025-04-16T12:00:00Z');
 const currentDate = new Date();
 
 const TabNavigator = () => {
